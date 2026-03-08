@@ -1,0 +1,2 @@
+
+eb0891f35128bc8f3a68711e535f9ab0a3314af6	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/bare-os","integrity":null,"time":1772950077783,"size":"262","metadata":{"time":1772950077783,"url":"https://registry.npm.taobao.org/bare-os","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:57 GMT","location":"https://registry.npmmirror.com/bare-os"},"options":{"compress":true},"status":301}}

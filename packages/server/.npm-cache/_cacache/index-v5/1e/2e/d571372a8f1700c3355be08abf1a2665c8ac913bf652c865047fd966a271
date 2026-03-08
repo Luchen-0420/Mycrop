@@ -1,0 +1,2 @@
+
+392c4b3c60f21735120c865d1621ded8ec42c78d	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/b4a","integrity":null,"time":1772950077783,"size":"262","metadata":{"time":1772950077783,"url":"https://registry.npm.taobao.org/b4a","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:57 GMT","location":"https://registry.npmmirror.com/b4a"},"options":{"compress":true},"status":301}}

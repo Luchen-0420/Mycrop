@@ -1,0 +1,2 @@
+
+820b3b7884be3ca3729e4bdd4f128cb1d1d1f734	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/bare-events","integrity":null,"time":1772950077783,"size":"262","metadata":{"time":1772950077783,"url":"https://registry.npm.taobao.org/bare-events","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:57 GMT","location":"https://registry.npmmirror.com/bare-events"},"options":{"compress":true},"status":301}}

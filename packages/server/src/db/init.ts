@@ -543,6 +543,57 @@ export const initDb = async () => {
       );
     `)
 
+    await query(`
+      CREATE TABLE IF NOT EXISTS agent_tasks (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        mission_id VARCHAR(50) UNIQUE NOT NULL, -- e.g. MC-20261012-001
+        original_prompt TEXT NOT NULL,
+        status VARCHAR(50) DEFAULT 'planning', -- 'planning', 'reviewing', 'dispatching', 'completed', 'blocked', 'cancelled'
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `)
+
+    await query(`
+      CREATE TABLE IF NOT EXISTS agent_subtasks (
+        id SERIAL PRIMARY KEY,
+        task_id INTEGER REFERENCES agent_tasks(id) ON DELETE CASCADE,
+        agent_role VARCHAR(50) NOT NULL, -- e.g. 'cfo', 'cao'
+        action_type VARCHAR(100) NOT NULL,
+        parameters JSONB,
+        status VARCHAR(50) DEFAULT 'pending', -- 'pending', 'in_progress', 'completed', 'failed'
+        result_data JSONB,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `)
+
+    await query(`
+      CREATE TABLE IF NOT EXISTS thinking_logs (
+        id SERIAL PRIMARY KEY,
+        task_id INTEGER REFERENCES agent_tasks(id) ON DELETE CASCADE,
+        subtask_id INTEGER REFERENCES agent_subtasks(id) ON DELETE SET NULL, -- Optional, if thought belongs to a subtask
+        agent_role VARCHAR(50) NOT NULL, -- e.g. 'strategy', 'review', 'cfo'
+        log_type VARCHAR(50) NOT NULL, -- 'thinking', 'action', 'error', 'system'
+        content TEXT NOT NULL,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `)
+
+    // Phase 4: Long-Term Memory (RAG)
+    await query(`CREATE EXTENSION IF NOT EXISTS vector;`)
+
+    await query(`
+      CREATE TABLE IF NOT EXISTS agent_memories (
+        id SERIAL PRIMARY KEY,
+        entity_type VARCHAR(50) NOT NULL,
+        content TEXT NOT NULL,
+        embedding vector(384),
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `)
+
     console.log('✅ Database schemas initialized.')
   } catch (err) {
     console.error('❌ Failed to initialize database schemas:', err)

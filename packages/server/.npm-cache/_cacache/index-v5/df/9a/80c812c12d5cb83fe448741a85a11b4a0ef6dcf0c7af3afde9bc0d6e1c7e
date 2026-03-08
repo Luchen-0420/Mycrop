@@ -1,0 +1,2 @@
+
+55cd3c6402c39d2d665bbb02fa857a2c86177b44	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/tar-stream","integrity":null,"time":1772950076825,"size":"262","metadata":{"time":1772950076825,"url":"https://registry.npm.taobao.org/tar-stream","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:56 GMT","location":"https://registry.npmmirror.com/tar-stream"},"options":{"compress":true},"status":301}}

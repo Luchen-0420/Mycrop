@@ -1,0 +1,2 @@
+
+b9cfc351e2ced6143356a3a2339bc06adff578e4	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/deep-extend","integrity":null,"time":1772950077202,"size":"262","metadata":{"time":1772950077202,"url":"https://registry.npm.taobao.org/deep-extend","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:56 GMT","location":"https://registry.npmmirror.com/deep-extend"},"options":{"compress":true},"status":301}}

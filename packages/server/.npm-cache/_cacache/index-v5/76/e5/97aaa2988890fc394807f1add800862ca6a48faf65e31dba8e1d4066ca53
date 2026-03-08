@@ -1,0 +1,2 @@
+
+d7c5d58da0a2fbbffa12a8fec8d5d59f4ed7e34c	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/simple-swizzle","integrity":null,"time":1772950077005,"size":"262","metadata":{"time":1772950077005,"url":"https://registry.npm.taobao.org/simple-swizzle","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:56 GMT","location":"https://registry.npmmirror.com/simple-swizzle"},"options":{"compress":true},"status":301}}

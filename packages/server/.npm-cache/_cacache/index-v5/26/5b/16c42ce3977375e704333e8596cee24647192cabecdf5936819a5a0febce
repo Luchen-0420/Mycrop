@@ -1,0 +1,2 @@
+
+6601f17e72095c02c96fa54376dfe1eb53436430	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/bare-path","integrity":null,"time":1772950076902,"size":"262","metadata":{"time":1772950076902,"url":"https://registry.npm.taobao.org/bare-path","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:56 GMT","location":"https://registry.npmmirror.com/bare-path"},"options":{"compress":true},"status":301}}

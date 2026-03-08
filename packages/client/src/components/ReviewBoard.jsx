@@ -1,33 +1,39 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShieldAlert, Check, X, AlertTriangle, FileSignature, ArrowRight, Activity } from 'lucide-react'
-
-const MOCK_PROPOSAL = {
-    id: 'PRP-20260308-01',
-    origin: 'CPO (公关部)',
-    title: '购置新款高配游戏主机',
-    reason: '下周有连续3天的游戏新品试玩期，为了保持娱乐状态与放松，申请购置 15,000 元游戏设备。',
-    reviews: [
-        { role: 'CFO (财务部)', status: 'rejected', comment: '预算超支！本月自由现金流仅剩 8,000。建议：租用或降配。' },
-        { role: 'CWO (健康中心)', status: 'rejected', comment: '严重警告：连续超长游戏时间将导致睡眠剥夺和颈椎风险增加。违背健康原则。' },
-        { role: 'CLO (法务/合规)', status: 'approved', comment: '符合年度享乐配额条款，无合规问题。' }
-    ]
-}
+import { ShieldAlert, Activity, ArrowRight, Check, X, TerminalSquare } from 'lucide-react'
 
 export default function ReviewBoard() {
-    const [isOpen, setIsOpen] = useState(false)
-    const [reviewState, setReviewState] = useState('idle') // idle, reviewing, decided
-    const [finalDecision, setFinalDecision] = useState('rejected')
+    const [missionPrompt, setMissionPrompt] = useState('')
+    const [status, setStatus] = useState('idle') // idle, negotiating, completed, rejected, blocked, error
+    const [result, setResult] = useState(null)
+    const [isExpanded, setIsExpanded] = useState(false)
 
-    // Simulate review process when opened
-    useEffect(() => {
-        if (isOpen && reviewState === 'idle') {
-            setReviewState('reviewing')
-            setTimeout(() => {
-                setReviewState('decided')
-            }, 2000)
+    const executeMission = async () => {
+        if (!missionPrompt.trim()) return
+
+        setStatus('negotiating')
+        setResult(null)
+        setIsExpanded(true)
+
+        try {
+            const res = await fetch('http://localhost:3002/api/missions/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ missionPrompt })
+            })
+
+            const data = await res.json()
+            if (res.ok) {
+                setStatus(data.status) // 'completed', 'rejected', 'blocked'
+                setResult(data)
+            } else {
+                setStatus('error')
+            }
+        } catch (err) {
+            console.error(err)
+            setStatus('error')
         }
-    }, [isOpen, reviewState])
+    }
 
     return (
         <div className="corp-card border-red-500/30 bg-gradient-to-br from-red-500/5 to-transparent relative overflow-hidden">
@@ -36,74 +42,77 @@ export default function ReviewBoard() {
             <div className="flex items-center justify-between mb-4 relative z-10">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <ShieldAlert size={18} className="text-red-400" />
-                    立项审批中心 (Approval Board)
+                    中枢审批管线 (Review Board)
                 </h3>
-                {reviewState === 'decided' ? (
-                    <span className="kpi-badge down border-red-500/50">提案被驳回 (Vetoed)</span>
-                ) : (
+                {status === 'negotiating' && (
                     <span className="px-2 py-1 text-[10px] bg-blue-500/20 text-blue-400 rounded-md animate-pulse flex items-center gap-1">
-                        <Activity size={10} /> 智能体评估中
+                        <Activity size={10} /> 高管博弈中...
                     </span>
                 )}
             </div>
 
-            <div className="bg-corp-bg/50 border border-corp-border rounded-lg p-4 mb-4 relative z-10">
-                <div className="flex justify-between items-start mb-2">
-                    <span className="text-xs font-mono text-corp-muted">{MOCK_PROPOSAL.id}</span>
-                    <span className="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-corp-muted">{MOCK_PROPOSAL.origin}</span>
-                </div>
-                <h4 className="font-medium text-corp-text text-sm mb-1">{MOCK_PROPOSAL.title}</h4>
-                <p className="text-xs text-corp-muted line-clamp-2">{MOCK_PROPOSAL.reason}</p>
+            <div className="relative z-10 mb-4 flex gap-2">
+                <input
+                    type="text"
+                    value={missionPrompt}
+                    onChange={e => setMissionPrompt(e.target.value)}
+                    placeholder="输入总裁指令 (如: 买台一万块的电脑)"
+                    className="flex-1 bg-black/40 border border-corp-border rounded-lg px-3 py-2 text-sm text-corp-text focus:outline-none focus:border-corp-accent/50"
+                    onKeyDown={(e) => e.key === 'Enter' && executeMission()}
+                    disabled={status === 'negotiating'}
+                />
+                <button
+                    onClick={executeMission}
+                    disabled={status === 'negotiating' || !missionPrompt.trim()}
+                    className="px-4 py-2 bg-corp-accent/20 hover:bg-corp-accent/30 text-corp-accent-light text-sm rounded-lg border border-corp-accent/30 transition-colors disabled:opacity-50 flex items-center gap-2"
+                >
+                    <TerminalSquare size={16} /> 下达
+                </button>
             </div>
 
             <AnimatePresence>
-                {!isOpen ? (
-                    <motion.button
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setIsOpen(true)}
-                        className="w-full py-2 bg-corp-accent/10 hover:bg-corp-accent/20 text-corp-accent-light text-sm rounded-lg border border-corp-accent/20 transition-colors flex items-center justify-center gap-2"
-                    >
-                        查看高管评审意见 <ArrowRight size={14} />
-                    </motion.button>
-                ) : (
+                {isExpanded && result && (
                     <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
                         className="space-y-4 overflow-hidden relative z-10"
                     >
-                        <div className="space-y-3 pt-2">
-                            <p className="text-xs font-bold text-corp-muted uppercase tracking-wider">部门评估结果：</p>
-                            {MOCK_PROPOSAL.reviews.map((r, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ x: -20, opacity: 0 }}
-                                    animate={{ x: 0, opacity: 1 }}
-                                    transition={{ delay: i * 0.4 }}
-                                    className={`p-3 rounded-lg border ${r.status === 'rejected' ? 'bg-red-500/5 border-red-500/20' : 'bg-green-500/5 border-green-500/20'}`}
-                                >
-                                    <div className="flex items-center gap-2 mb-1">
-                                        {r.status === 'rejected' ? <X size={14} className="text-red-400" /> : <Check size={14} className="text-green-400" />}
-                                        <span className={`text-xs font-bold ${r.status === 'rejected' ? 'text-red-400' : 'text-green-400'}`}>{r.role}</span>
-                                    </div>
-                                    <p className="text-xs text-corp-text leading-relaxed">{r.comment}</p>
-                                </motion.div>
-                            ))}
+                        <div className={`p-4 rounded-lg border ${status === 'completed' ? 'bg-green-500/10 border-green-500/30' :
+                                status === 'rejected' ? 'bg-red-500/10 border-red-500/30' :
+                                    'bg-yellow-500/10 border-yellow-500/30'
+                            }`}>
+                            <div className="flex items-center gap-2 mb-2">
+                                {status === 'completed' ? <Check size={16} className="text-green-400" /> :
+                                    status === 'rejected' ? <X size={16} className="text-red-400" /> :
+                                        <AlertTriangle size={16} className="text-yellow-400" />}
+                                <span className={`text-sm font-bold ${status === 'completed' ? 'text-green-400' :
+                                        status === 'rejected' ? 'text-red-400' :
+                                            'text-yellow-400'
+                                    }`}>
+                                    {status === 'completed' ? '提案已通过并调度 (Approved)' :
+                                        status === 'rejected' ? '风控驳回 (Vetoed by Review Board)' :
+                                            '审批阻塞 (Blocked)'}
+                                </span>
+                            </div>
+
+                            <div className="text-sm text-corp-text bg-black/30 p-3 rounded-md border border-white/5 whitespace-pre-wrap leading-relaxed">
+                                {result.report || result.reason || '未返回详细报告。'}
+                            </div>
                         </div>
 
-                        {reviewState === 'decided' && (
+                        {status !== 'completed' && status !== 'idle' && (
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.5 }}
-                                className="pt-4 border-t border-corp-border flex gap-3"
+                                transition={{ delay: 0.5 }}
+                                className="pt-2 border-t border-corp-border flex gap-3"
                             >
-                                <button className="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-xs font-medium rounded-lg border border-red-500/20 transition-colors">
+                                <button onClick={() => setIsExpanded(false)} className="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-xs font-medium rounded-lg border border-red-500/20 transition-colors">
                                     遵从建议 (Cancel)
                                 </button>
                                 <button className="flex-1 py-2 bg-corp-bg hover:bg-white/5 text-corp-text text-xs font-medium rounded-lg border border-corp-border transition-colors">
-                                    CEO 强制执行 (Override)
+                                    CEO 强制执行 (Override Workflow)
                                 </button>
                             </motion.div>
                         )}

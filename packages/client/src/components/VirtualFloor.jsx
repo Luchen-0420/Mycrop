@@ -135,8 +135,8 @@ export default function VirtualFloor() {
                 <div className="flex flex-col gap-2 w-[800px]">
 
                     {/* Floor 5: Penthouse (CEO) */}
-                    <div className="w-full h-32 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-purple-500/50 transition-colors">
-                        <RoomBackground color="purple" label={AGENTS[0].role} />
+                    <div className="w-full h-40 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-purple-500/50 transition-colors">
+                        <RoomBackground color="purple" label="总裁中枢 & 记忆核心 (CEO & RAG Memory)" />
                         <RoomProps type="ceo" />
                         <SimulatedSprite agent={AGENTS[0]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={700} startX={300} />
                     </div>
@@ -313,6 +313,15 @@ function RoomProps({ type }) {
                         <div className="absolute -top-14 left-10 w-20 h-12 border border-teal-400/50 bg-teal-400/10 rounded shadow-glow backdrop-blur-sm"></div>
                         <div className="absolute bottom-full left-4 w-5 h-14 bg-white/10 border-l border-white/20"></div>
                         <div className="absolute bottom-full right-4 w-5 h-14 bg-white/10 border-r border-white/20"></div>
+                    </div>
+                    {/* RAG Memory Core */}
+                    <div className="ml-12 w-20 h-32 border border-fuchsia-500/40 bg-fuchsia-500/10 rounded-t-full flex flex-col items-center justify-center relative overflow-hidden shadow-[0_0_40px_rgba(217,70,239,0.2)]">
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-fuchsia-500/20 opacity-50"></div>
+                        <div className="w-10 h-10 rounded-full bg-fuchsia-500/20 border-2 border-fuchsia-400/60 animate-pulse shadow-glow flex items-center justify-center">
+                            <div className="w-4 h-4 rounded-full bg-fuchsia-300 shadow-[0_0_20px_#f0abfc]"></div>
+                        </div>
+                        <div className="absolute bottom-0 w-full h-10 bg-gradient-to-t from-fuchsia-500/60 to-transparent blur-sm"></div>
+                        <div className="absolute top-3 w-full text-center text-[8px] font-bold text-fuchsia-300 tracking-widest opacity-90 drop-shadow-md">RAG CORE</div>
                     </div>
                 </div>
             )

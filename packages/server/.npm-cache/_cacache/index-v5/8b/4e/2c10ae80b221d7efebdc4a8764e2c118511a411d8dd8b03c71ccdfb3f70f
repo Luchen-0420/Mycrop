@@ -1,0 +1,2 @@
+
+2bd1c24bae210942bb05a88c661c2b437a1089c1	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/node-abi","integrity":null,"time":1772950076822,"size":"262","metadata":{"time":1772950076822,"url":"https://registry.npm.taobao.org/node-abi","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:56 GMT","location":"https://registry.npmmirror.com/node-abi"},"options":{"compress":true},"status":301}}

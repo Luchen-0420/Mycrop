@@ -1,0 +1,2 @@
+
+78390d36c80816688f21c7f19c1f30a7d23e3daa	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/streamx","integrity":null,"time":1772950077784,"size":"262","metadata":{"time":1772950077784,"url":"https://registry.npm.taobao.org/streamx","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:57 GMT","location":"https://registry.npmmirror.com/streamx"},"options":{"compress":true},"status":301}}

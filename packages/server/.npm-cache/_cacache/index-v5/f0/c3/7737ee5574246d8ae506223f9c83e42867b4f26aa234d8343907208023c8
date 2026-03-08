@@ -1,0 +1,2 @@
+
+3219eb191449f8d48ba5f8ef283bd1ff326811bf	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/sharp","integrity":null,"time":1772950075878,"size":"262","metadata":{"time":1772950075878,"url":"https://registry.npm.taobao.org/sharp","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 06:07:55 GMT","location":"https://registry.npmmirror.com/sharp"},"options":{"compress":true},"status":301}}

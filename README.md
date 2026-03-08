@@ -27,6 +27,23 @@
 
 ---
 
+<p align="center">
+  <i>👉 在这里放置展示 2.5D 公司大楼动效与早会气泡的 GIF (1) 👈</i>
+</p>
+<p align="center">
+  <i>👉 在这里放置在审批中心提交任务并被 AI 高管驳回的实机录屏 GIF (2) 👈</i>
+</p>
+
+---
+
+## 🌟 核心特性速览 (Features)
+
+- [x] 👾 **沉浸式虚拟办公楼**：抛弃枯燥的表格，在 2.5D 的等距视角大厦中直观感受你的资产运作。
+- [x] 🧠 **14位 AI 高管系统**：细分财务、法务、行政权限，全方位接管你的生活决策。
+- [x] 💬 **社交化早会简报**：每天早晨通过生动的对话气泡，向你做全盘的数据述职。
+- [x] ⚖️ **强约束风控反演**：买大件物品？必须通过 CFO 和健康总监的联审，预算超标直接驳回。
+- [x] 💾 **本地 RAG 长效记忆**：基于本地 Transformer 与 PostgreSQL `pgvector`，让高管拥有对你历史行为的深刻记忆。
+
 ## 🤔 为什么要做 Mycrop？
 
 市面上的应用：
@@ -138,12 +155,17 @@ cd Mycrop
 # 2. 安装依赖 (Monorepo)
 npm install
 
-# 3. 启动本地 Postgres (推荐 Docker) 并执行初始化
-cd packages/server
-npx tsx run-init.ts # 灌入基础 DB Schema
+# 3. 环境变量配置 (关键) 🔑
+# 复制 server 目录下的示例环境变量文件并填入你的 API Key
+cp packages/server/.env.example packages/server/.env
+# 使用你喜欢的编辑器打开 packages/server/.env，填入你的大模型 (如 DeepSeek/OpenAI) 的 API 密钥
 
-# 4. 前后端双开
-npm run dev # 根目录下运行，自动拉起客户端 3000 与服务端 3001
+# 4. 启动本地 Postgres (推荐 Docker) 并执行初始化
+cd packages/server
+npx tsx src/db/init.ts # 🚨 重要：灌入基础 DB Schema 与 pgvector 扩展
+
+# 5. 前后端双开
+npm run dev # 在应用根目录 (Mycrop) 下运行，自动并发拉起客户端 3000 与服务端 3001
 ```
 
 ---
@@ -155,8 +177,8 @@ npm run dev # 根目录下运行，自动拉起客户端 3000 与服务端 3001
 | **Phase 0** | ✅ | **基石建设** | `users`, `finance`, `operations` 等九大表结构就绪；标准 CRUD 与 React UI 骨架贯通。 |
 | **Phase 1** | ✅ | **趣味翻新** | 引入 `Framer Motion`，重构转场；增加早会对话气泡模拟体验；构建 Persona Studio；构建 11 部门横轴沉浸式大厦视角。 |
 | **Phase 2** | ✅ | **AI 脑核装入** | 为 4 名核心首发角色注入 `System Prompt` 并接入 DeepSeek 云端 LLM API；跑通 Live 版 `Triage` 和 `Morning Brief` 气泡；支持楼层小人直接聊天指令交互。 |
-| **Phase 3** | 📅 | **多轮博弈流** | 实现重头戏：`Strategy -> Review -> Dispatch` 强约束流水线；配置 4 层容错处理器（防环死）。 |
-| **Phase 4** | 📅 | **沉浸与记忆** | `PixiJS` 场景主卧实装；引入 `pgvector` 让高管们形成长效记忆，记住你的每一笔糊涂账。 |
+| **Phase 3** | ✅ | **多轮博弈流** | 实现重头戏：`Strategy -> Review -> Dispatch` 强约束流水线；配置 4 层容错处理器（防环死）。 |
+| **Phase 4** | ✅ | **沉浸与记忆** | 总裁主卧UI实装；运用 `@xenova/transformers` 构建纯本地 Local NLP 向量服务；引入 PostgreSQL `pgvector` 让高管们形成长效思维记忆。 |
 
 完整的业务/技术演进推演，详见内部知识库中的：[📚 ME_CORP_2.0_BLUEPRINT.md](docs/ME_CORP_2.0_BLUEPRINT.md)
 

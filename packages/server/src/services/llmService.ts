@@ -49,6 +49,7 @@ export async function generateJSONResponse<T>(
     model: string = DEFAULT_MODEL
 ): Promise<T> {
     try {
+        console.log(`[LLM JSON Request] Model: ${model}, Messages length: ${messages.length}`)
         const response = await openai.chat.completions.create({
             model,
             messages,
@@ -57,6 +58,8 @@ export async function generateJSONResponse<T>(
         });
 
         const content = response.choices[0]?.message?.content;
+        console.log(`[LLM JSON Response Text]:\n${content}\n------------------------`)
+
         if (!content) {
             throw new Error('Empty response from LLM');
         }

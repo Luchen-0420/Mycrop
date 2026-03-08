@@ -60,6 +60,10 @@ app.use('/api/travel', travelRoutes)
 import agentsRoutes from './routes/agents'
 app.use('/api/agents', agentsRoutes)
 
+// Mission Control Route
+import missionsRoutes from './routes/missions'
+app.use('/api/missions', missionsRoutes)
+
 // Placeholder routes for departments
 app.get('/api/dashboard/stats', (_req, res) => {
     res.json({
