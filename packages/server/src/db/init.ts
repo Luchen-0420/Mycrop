@@ -594,6 +594,10 @@ export const initDb = async () => {
       );
     `)
 
+    // Phase 5.5: Goal Redemption System — extend tasks table
+    await query(`ALTER TABLE tasks ADD COLUMN IF NOT EXISTS points_reward INTEGER DEFAULT 0;`)
+    await query(`ALTER TABLE tasks ADD COLUMN IF NOT EXISTS linked_wishlist_id INTEGER REFERENCES wishlist_items(id) ON DELETE SET NULL;`)
+
     console.log('✅ Database schemas initialized.')
   } catch (err) {
     console.error('❌ Failed to initialize database schemas:', err)

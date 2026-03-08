@@ -3,6 +3,7 @@ import { generateJSONResponse } from '../services/llmService'
 import { searchMemories, saveMemory } from '../services/memoryService'
 import { STRATEGY_PROMPT, REVIEW_PROMPT, DISPATCH_PROMPT } from '../prompts/governance'
 import OpenAI from 'openai'
+import { AgentExecutor } from './agentExecutor'
 
 // Interfaces for structured LLM outputs
 interface StrategyResponse {
@@ -105,9 +106,9 @@ export class NegotiationEngine {
                 console.log(`[Review] ✅ PLAN APPROVED. Passing to Dispatch Hub...`)
                 await this.updateTaskStatus(taskId, 'dispatching')
 
-                // Mocking execution of subtasks for now (Phase 3 MVP)
-                console.log(`[Dispatch] Executing subtasks concurrently...`)
-                const execResults = await this.mockExecuteSubtasks(taskId, strategyPlan.subtasks || [])
+                // Real Execution via Agent Executor
+                console.log(`[Dispatch] Handing subtasks to Department Agents...`)
+                const execResults = await this.executeSubtasks(taskId, strategyPlan.subtasks || [])
 
                 // Summarize
                 const dispatchSummary = await this.invokeDispatch(taskId, missionPrompt, execResults)
@@ -191,18 +192,30 @@ export class NegotiationEngine {
         return response
     }
 
-    // Mocks execution of the subtasks (writing to DB sequentially/concurrently)
-    private async mockExecuteSubtasks(taskId: number, subtasks: any[]): Promise<any[]> {
+    // Orchestrates the actual execution of subtasks via department agents
+    private async executeSubtasks(taskId: number, subtasks: any[]): Promise<any[]> {
         const results = []
+        const executor = new AgentExecutor(this.userId)
+
         for (const sub of subtasks) {
             console.log(`  -> [Opsing] Role: ${sub.role} | Action: ${sub.action_instruction}`)
+
+            // Delegate real execution
+            const executionData = await executor.executeSubtask(sub.role, sub.action_instruction, sub.parameters)
+
             // Log to DB
             const res = await query(
                 `INSERT INTO agent_subtasks (task_id, agent_role, action_type, parameters, status, result_data) 
-         VALUES ($1, $2, $3, $4, 'completed', $5) RETURNING id`,
-                [taskId, sub.role, sub.action_instruction, sub.parameters, { success: true, fake_db_id: Math.random() }]
+         VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+                [taskId, sub.role, sub.action_instruction, sub.parameters, executionData.status, executionData]
             )
-            results.push({ role: sub.role, status: 'Success' })
+
+            results.push({
+                role: sub.role,
+                status: executionData.status,
+                summary: executionData.summary,
+                db_record_id: res.rows[0].id
+            })
         }
         return results
     }

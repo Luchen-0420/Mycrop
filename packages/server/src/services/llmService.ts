@@ -57,12 +57,15 @@ export async function generateJSONResponse<T>(
             temperature: 0.1, // Lower temperature for more deterministic JSON
         });
 
-        const content = response.choices[0]?.message?.content;
+        let content = response.choices[0]?.message?.content || '';
         console.log(`[LLM JSON Response Text]:\n${content}\n------------------------`)
 
         if (!content) {
             throw new Error('Empty response from LLM');
         }
+
+        // Clean up potential markdown formatting (```json ... ```)
+        content = content.replace(/^```(json)?\n?/i, '').replace(/\n?```$/i, '').trim();
 
         return JSON.parse(content) as T;
     } catch (error) {
