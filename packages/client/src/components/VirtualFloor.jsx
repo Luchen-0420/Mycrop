@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Building2, Plus, Zap, Activity } from 'lucide-react'
+import { Building2, Plus, Zap, Activity, Loader2 } from 'lucide-react'
 
 // Simulation Agents Data for 2D side-view (Full 11 Departments Hierarchy)
 const AGENTS = [
@@ -30,6 +30,11 @@ export default function VirtualFloor() {
     const [selectedAgent, setSelectedAgent] = useState(null)
     const [timeInGame, setTimeInGame] = useState('09:00 AM')
 
+    // AI Chat States
+    const [chatInput, setChatInput] = useState('')
+    const [chatReply, setChatReply] = useState('')
+    const [isChatting, setIsChatting] = useState(false)
+
     // Simulate game time passing
     useEffect(() => {
         const interval = setInterval(() => {
@@ -47,6 +52,38 @@ export default function VirtualFloor() {
         }, 5000)
         return () => clearInterval(interval)
     }, [])
+
+    const handleChatSubmit = async () => {
+        if (!chatInput.trim() || !selectedAgent) return
+
+        setIsChatting(true)
+        setChatReply('') // hide old reply while generating
+
+        try {
+            const res = await fetch('http://localhost:3002/api/agents/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ agentId: selectedAgent, message: chatInput })
+            });
+
+            if (!res.ok) throw new Error('Network error');
+            const data = await res.json();
+            setChatReply(data.reply);
+            setChatInput(''); // clear input on success
+
+        } catch (error) {
+            console.error("Chat Error:", error);
+            setChatReply('无法连接到通讯网络，请确保 M.E. Corp 终端已启动。');
+        } finally {
+            setIsChatting(false)
+        }
+    }
+
+    const closeHUD = () => {
+        setSelectedAgent(null);
+        setChatReply('');
+        setChatInput('');
+    }
 
     return (
         <div className="corp-card mb-8 relative overflow-hidden bg-[#0A0D14] min-h-[900px] flex flex-col border border-white/5 shadow-2xl">
@@ -185,36 +222,62 @@ export default function VirtualFloor() {
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-2xl border border-white/20 p-5 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] min-w-[360px] flex items-center gap-5 z-50"
+                        className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-2xl border border-white/20 p-6 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] min-w-[420px] w-[500px] flex flex-col gap-5 z-50"
                     >
-                        <div className={`w-16 h-16 bg-gradient-to-br from-white/10 to-transparent rounded-2xl border border-white/20 flex items-center justify-center text-4xl shadow-inner relative overflow-hidden`}>
-                            <div className="absolute inset-0 bg-purple-500/20 opacity-50 animate-pulse"></div>
-                            <span className="relative z-10">{AGENTS.find(a => a.id === selectedAgent)?.avatar}</span>
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-white font-bold text-base flex items-center gap-2 mb-1">
-                                {AGENTS.find(a => a.id === selectedAgent)?.name}
-                                <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">Active</span>
-                            </h3>
-                            <p className="text-purple-200/80 text-xs flex items-center gap-1.5">
-                                <Activity size={12} className="text-purple-400" />
-                                {AGENTS.find(a => a.id === selectedAgent)?.status}
-                            </p>
-                        </div>
-                        <div className="flex gap-2">
-                            <button className="bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-2 rounded-xl border border-white/10 transition-all font-bold">
-                                派发新任务
-                            </button>
-                            <button className="bg-purple-500/20 hover:bg-purple-500/40 text-purple-200 text-xs px-4 py-2 rounded-xl border border-purple-500/30 transition-all font-bold" onClick={() => setSelectedAgent(null)}>
-                                关闭
+                        {/* Header Info */}
+                        <div className="flex w-full items-center gap-5">
+                            <div className="w-16 h-16 bg-gradient-to-br from-white/10 to-transparent rounded-2xl border border-white/20 flex items-center justify-center text-4xl shadow-inner relative overflow-hidden">
+                                <div className="absolute inset-0 bg-purple-500/20 opacity-50 animate-pulse"></div>
+                                <span className="relative z-10">{AGENTS.find(a => a.id === selectedAgent)?.avatar}</span>
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-white font-bold text-base flex items-center gap-2 mb-1">
+                                    {AGENTS.find(a => a.id === selectedAgent)?.name}
+                                    <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">Active</span>
+                                </h3>
+                                <p className="text-purple-200/80 text-xs flex items-center gap-1.5">
+                                    <Activity size={12} className="text-purple-400" />
+                                    {AGENTS.find(a => a.id === selectedAgent)?.status}
+                                </p>
+                            </div>
+                            <button className="bg-white/5 hover:bg-white/10 text-white/70 text-xs px-3 py-1.5 rounded-lg border border-white/10 transition-all font-bold self-start mt-1" onClick={closeHUD}>
+                                X 关闭
                             </button>
                         </div>
+
+                        {/* LLM Chat Section */}
+                        <div className="w-full flex flex-col gap-3 border-t border-white/10 pt-4">
+                            {chatReply && (
+                                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="p-4 bg-purple-500/10 border border-purple-500/20 shadow-glow rounded-xl text-sm text-purple-100">
+                                    <p className="whitespace-pre-wrap leading-relaxed">{chatReply}</p>
+                                </motion.div>
+                            )}
+                            <div className="flex gap-2 w-full">
+                                <input
+                                    type="text"
+                                    value={chatInput}
+                                    onChange={(e) => setChatInput(e.target.value)}
+                                    placeholder={`向 ${AGENTS.find(a => a.id === selectedAgent)?.role} 下达指令或交谈...`}
+                                    className="flex-1 bg-black/60 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-black/80 transition-all"
+                                    onKeyDown={(e) => e.key === 'Enter' && handleChatSubmit()}
+                                />
+                                <button
+                                    onClick={handleChatSubmit}
+                                    disabled={isChatting || !chatInput.trim()}
+                                    className="bg-purple-500/20 hover:bg-purple-500/40 disabled:opacity-50 text-purple-200 text-sm px-6 py-2.5 rounded-xl border border-purple-500/30 transition-all font-bold flex items-center gap-2 shadow-glow"
+                                >
+                                    {isChatting ? <Loader2 size={16} className="animate-spin" /> : '发送'}
+                                </button>
+                            </div>
+                        </div>
+
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
     )
 }
+
 
 // --- Helper Components for the Rooms ---
 

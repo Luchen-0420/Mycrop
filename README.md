@@ -153,8 +153,8 @@ npm run dev # 根目录下运行，自动拉起客户端 3000 与服务端 3001
 | 阶段 | 状态 | 目标 | 核心产出 |
 |---|---|---|---|
 | **Phase 0** | ✅ | **基石建设** | `users`, `finance`, `operations` 等九大表结构就绪；标准 CRUD 与 React UI 骨架贯通。 |
-| **Phase 1** | 🚧 | **趣味翻新** | 引入 `Framer Motion`，重构转场；增加早会对话气泡模拟体验；构建 Persona Studio。 |
-| **Phase 2** | 📅 | **AI 脑核装入** | 为 14 个角色的专属 `System Prompt` 注入 LLM；跑通 Triage Bot 与 Morning Brief。 |
+| **Phase 1** | ✅ | **趣味翻新** | 引入 `Framer Motion`，重构转场；增加早会对话气泡模拟体验；构建 Persona Studio；构建 11 部门横轴沉浸式大厦视角。 |
+| **Phase 2** | ✅ | **AI 脑核装入** | 为 4 名核心首发角色注入 `System Prompt` 并接入 DeepSeek 云端 LLM API；跑通 Live 版 `Triage` 和 `Morning Brief` 气泡；支持楼层小人直接聊天指令交互。 |
 | **Phase 3** | 📅 | **多轮博弈流** | 实现重头戏：`Strategy -> Review -> Dispatch` 强约束流水线；配置 4 层容错处理器（防环死）。 |
 | **Phase 4** | 📅 | **沉浸与记忆** | `PixiJS` 场景主卧实装；引入 `pgvector` 让高管们形成长效记忆，记住你的每一笔糊涂账。 |
 
