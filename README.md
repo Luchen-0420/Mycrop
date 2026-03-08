@@ -214,21 +214,22 @@ graph TD
 > *"Boss，昨夜睡眠 5h 低于标准，建议今日推迟晨跑。" —— Dr.Chen (CWO)*<br>
 > *"附议。并且如果连续断签，你的自律积分将被清零。" —— Max (COO)*
 
-### 🧠 3. 思维链全景与硬核容错引擎 (Robust Scheduler)
-拒绝多智能体常见的“死循环”与“黑盒”。
-- **思维全景展示**：你可以点开任何一个任务，展开查阅每一位 Agent 收到了什么数据、执行了什么 PostgreSQL Tool Calling。你甚至能清楚看到它们内心是**怎么想的 (Thinking Process)**，为什么冷酷地否决了你的请求。
-- **四阶段调度容错**：面对大模型的偶尔抽风，系统内置 `Auto-Retry (自动重试)` -> `Escalate (抛出黄灯单交予人工)` -> `Rollback (事务级数据库回滚)` -> `Manual Intervention (一键恢复)` 的工业级调度机制。
+### 🧠 3. 智能体大脑与 Tool Calling (Agentic Execution)
+不再是只会聊天的机器人。14 位高管接入了**真实后端工具集**：
+- **CFO**：直接操作数据库记录账单、核算预算、管理积分类别墅。
+- **COO**：动态拆解任务并赋予积分奖励。
+- **CAO**：定时调取全局数据生成审计报告。
+- **技术全链路透明**：你可以实时查阅每一位 Agent 的 `Thought (内心 OS)` 和它们调用的具体的 `PostgreSQL` 命令。
 
 ### 🎭 4. 用户自定义系统 (Persona Studio)
-一切都可以按你的口味来捏脸。系统内置全局的高管控制台：
+一切都可以按你的口味来捏脸：
 - **设定称呼**：让所有高管叫你“Boss”、“主公”或“蝙蝠侠”。
-- **人设捏制 (Prompt 编辑)**：控制高管的发言风格。比如把 COO 设定为“严厉毒舌的魔鬼健身教练”，让它在审查时极尽嘲讽。
-- **底层模型热切换**：为负责缜密逻辑的战略办接入 `Claude 3.5 Sonnet`，为高频闲聊前台保留 `DeepSeek V3`，为写代码的 CTO 接入 `GPT-4o`。
+- **人设捏制 (Prompt 编辑)**：控制高管的发言风格。比如把 COO 设定为“严厉毒舌的魔鬼健身教练”。
+- **底层模型热切换**：为战略部接入 `Claude 3.5 Sonnet`，为高频闲聊前台保留 `DeepSeek V3`。
 
 ### 🎮 5. 游戏化成长与积分体系
-- **心愿兑换**：想买贵重物品？先设定心愿目标，通过完成每日任务赚取积分，攒够了才能兑换。延迟满足，真正的自律。
-- **CEO 评级考绩**：执行力强、预算控制得当，你的系统职级将从 `Intern (实习生)` 一路晋升至 `Legendary CEO`。
-- **独裁有代价**：你作为 CEO 始终有 `Override（强制通过）` 的特权，但过度使用会扣除你的期权积分并在执政记录上留下污点。
+- **心愿兑换**：想买贵重物品？先设定心愿目标，通过完成每日任务赚取积分，攒够了才能兑换。
+- **CEO 评级考绩**：执行力强、预算控制得当，你的系统职级将从 `Intern` 晋升至 `Legendary CEO`。
 
 ---
 
@@ -268,29 +269,62 @@ docker compose down -v           # 停止并清除数据
 <details>
 <summary>展开查看本地开发指南</summary>
 
-**前置要求**：Node.js ≥ 18 · PostgreSQL ≥ 14（需启用 pgvector） · LLM API Key
+# M.E. Corp: 高净值个人治理系统 (v2.2)
 
+> **"If you don't run your life like a company, someone else will."**
+
+M.E. Corp 是一款将个人生活、财务与职业发展进行“企业化治理”的深度管理系统。它不仅是一个 Dashboard，而是一个由 **Multi-Agent Hierarchy (多代理科层体系)** 驱动的虚拟办公室。
+
+---
+
+## 🌟 核心特色 (v2.2)
+
+### 1. 2.5D 虚拟战略大厦 (Virtual Office)
+采用沉浸式 2.5D 侧透视渲染引擎，将 11 个职能部门具象化为大厦层级。每一个 Agent 都在其工位上实时待命，为您处理从财务审计到习惯监控的所有事务。
+
+### 2. CEO 战略终端 (Strategic Terminal)
+- **快捷唤起**: 全局 `Ctrl + K` 呼叫。
+- **语义决策**: 直接输入指令，系统自动编排 `财务 -> 运营 -> 总裁` 的接力式协同。
+- **仪式感签批**: 庄重的数字化公文系统，让每一笔开支、每一项计划都具备企业级约束力。
+
+### 3. Agent 协同决策引擎
+- **Ada (CFO)**: 基于 ROI 的理性消费审计。
+- **Max (COO)**: 积分不足时的专项挑战生成。
+- **Neo (CTO)**: 个人研发项目的生命周期管理。
+- **Zane (Legal)**: 全球资产与契约风控。
+
+---
+
+## 🚀 快速启动
+
+### 1. 环境准备
+- Node.js 18+
+- PostgreSQL 14+
+- OpenAI / Claude API Key (用于驱动 Agent 链)
+
+### 2. 安装与运行
 ```bash
-# 1. 克隆 & 安装
-git clone https://github.com/Luchen-0420/Mycrop.git
-cd Mycrop && npm install
+# 安装依赖
+npm install
 
-# 2. 环境变量
-cp packages/server/.env.example packages/server/.env
-# 编辑 .env 填入 LLM_API_KEY、数据库连接等
-
-# 3. 前后端双开
+# 启动全栈开发环境 (Vite + Express)
 npm run dev
-# Frontend → http://localhost:5173
-# Backend  → http://localhost:3002
 ```
-</details>
 
-### 测试 Agent 执行
+### 3. 访问入口
+- **战略中枢**: `http://localhost:5173/`
+- **全局搜索**: `Ctrl + K`
 
-```bash
-# 记一笔消费
-curl -X POST http://localhost:3002/api/missions/execute \
+---
+
+## 📖 文档中心
+
+- [模块功能说明](./docs/MODULES.md) - 11 个部门的详细职责。
+- [项目结构说明](./docs/PROJECT_STRUCTURE.md) - 源码目录与 Agent 架构。
+- [API 路由文档](./docs/API.md) - 战略分发与业务接口。
+
+---
+© 2026 M.E. Corp. Built for the ambitious.
   -H "Content-Type: application/json" \
   -d '{"missionPrompt": "我刚花了30块喝了一杯星巴克"}'
 
@@ -315,6 +349,7 @@ curl -X POST http://localhost:3002/api/missions/execute \
 | **Phase 5.5** | ✅ | **积分别墅兑换** | 心愿目标池 (Wishlist) 建立；完成任务发放 Reward 积分，积分达标方可兑换贵重物品。 |
 | **Phase 6** | ✅ | **运营部全战力重构** | 将 ToDo 彻底重构为 **CEO 巡视指挥舱**：引入毛玻璃、霓虹发光进度条，强调大盘 KPI 与连击纪律。 |
 | **Phase 7** | ✅ | **审计与反思引擎** | 新设 **首席审计官 (CAO)**：每日 23:00 自动调取 LLM 盘点全公司意图达成率，产出带"拖延指数"的毒舌简报大屏。 |
+| **Phase 8** | ✅ | **2.5D 沉浸式办公大厅** | 引入 `PixiJS` 渲染引擎；实现带坐标投影的等距视角大楼；Agent 状态机动效与 WebGL 交互集成。 |
 
 ---
 

@@ -30,5 +30,12 @@ dist-ssr
 .env.test.local
 .env.production.local
 
-# Docs
-docs/
+# Docs (Removed from ignore to allow documentation sync)
+# docs/
+
+# Caches
+.npm-cache
+.eslintcache
+.stylelintcache
+node_modules/
+dist/
