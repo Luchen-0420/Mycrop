@@ -598,6 +598,30 @@ export const initDb = async () => {
     await query(`ALTER TABLE tasks ADD COLUMN IF NOT EXISTS points_reward INTEGER DEFAULT 0;`)
     await query(`ALTER TABLE tasks ADD COLUMN IF NOT EXISTS linked_wishlist_id INTEGER REFERENCES wishlist_items(id) ON DELETE SET NULL;`)
 
+    // Phase 7: Audit & Reflection Engine
+    await query(`
+      CREATE TABLE IF NOT EXISTS audit_reports (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        report_date DATE NOT NULL UNIQUE,
+        efficiency_score INTEGER CHECK (efficiency_score >= 0 AND efficiency_score <= 100),
+        procrastination_index DECIMAL(3, 2),
+        tasks_created INTEGER DEFAULT 0,
+        tasks_completed INTEGER DEFAULT 0,
+        habits_completed INTEGER DEFAULT 0,
+        habits_total INTEGER DEFAULT 0,
+        points_earned INTEGER DEFAULT 0,
+        points_spent INTEGER DEFAULT 0,
+        okr_delta JSONB,
+        top_wins TEXT[],
+        top_failures TEXT[],
+        honest_feedback TEXT,
+        recommendations TEXT[],
+        raw_llm_response JSONB,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `)
+
     console.log('✅ Database schemas initialized.')
   } catch (err) {
     console.error('❌ Failed to initialize database schemas:', err)

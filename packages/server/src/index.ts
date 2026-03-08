@@ -64,6 +64,10 @@ app.use('/api/agents', agentsRoutes)
 import missionsRoutes from './routes/missions'
 app.use('/api/missions', missionsRoutes)
 
+// Audit Engine Route
+import auditRoutes from './routes/audit'
+app.use('/api/audit', auditRoutes)
+
 // Placeholder routes for departments
 app.get('/api/dashboard/stats', (_req, res) => {
     res.json({

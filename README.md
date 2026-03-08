@@ -123,67 +123,40 @@
 
 ---
 
-## 💼 各部门详细运转流程与业务协同
+## 💼 14 位虚拟高管职责全解析
 
-在 Mycrop 中，不仅有单一部门的操作，更涉及高度拟真、逻辑缜密的**跨部门协同 (Cross-Department Collaboration)**，让每一条随性的指令都经过严密的业务闭环。
+Mycrop 的本质是**“用公司架构强行接管个人生活”**。这里没有冰冷的列表，只有 14 个性格迥异、极度偏执的 AI 高管。他们分属于 **3 个核心治理层** 与 **11 个执行大营**：
 
-### 📌 部门独立运转工作流
+### 🏛️ 公司治理决策层 (Governance Board)
 
-| 部门 | 代号 | 核心工具 | 职责 |
-|:---:|:---:|:---|:---|
-| 💰 **CFO** | `finance` | `record_transaction` · `check_budget` · `create_wishlist_goal` · `check_points_balance` · `redeem_wishlist_goal` | 管钱：记账、预算风控、心愿积分管理 |
-| ⚙️ **COO** | `operations` | `create_task` · `complete_task` | 管事：任务拆解、排期、积分奖励发放 |
-| 🏠 **CAO** | `admin` | `add_fixed_asset` | 管物：大件资产登记与生命周期追踪 |
+这四位不负责具体干活，只负责控制你（CEO）的欲望与指令下发：
 
-### 🤝 多部门协同实战：两大核心场景
+| 高管名称 | 代号 | 核心职责 | 性格与行事风格 |
+|:---|:---|:---|:---|
+| **接待前台** | `Triage Bot` | **指令分发**。拦截你所有的初始话语，判断是简单的闲聊求安慰，还是需要动用公司资源的“复杂指令”，并将其丢给战略办。 | 八面玲珑，绝对客观。 |
+| **战略规划办** | `Strategy` | **任务拆解**。把你的“我想买个 PS5” 拆解成“CFO 减扣预算”和“CAO 新增固定资产”两个具体的行动方案。 | 填缝找补，逻辑严密，不择手段实现你的构想。 |
+| **审核委员会** | `Review Board` | **强行驳回**。对战略办拆解的计划进行合规审查。如果这个月没预算了，直接冷酷驳回，即便你是 CEO。 | 极度死板的合规风控机器。 |
+| **运营调度中心** | `Ops Hub` | **派发监工**。拿着通过审核的排期表，去催促下面的核心执行部门干活，并汇总执行结果反馈给你。 | 严厉的周报催命鬼。 |
 
-<details>
-<summary><b>场景一：直接消费 —— "我花了30块喝了一杯星巴克"</b></summary>
+### 🏢 核心业务执行群 (Execution Departments)
 
-```
-CEO: "我花了30块喝了杯星巴克咖啡"
-  │
-  ├─→ Strategy 拆解: 派给 CFO 记账
-  ├─→ Review 审核: 30元餐饮消费，金额合理 ✅ APPROVE
-  └─→ CFO 执行: record_transaction(amount=30, category="餐饮", type="expense")
-       └─→ PostgreSQL transactions 表新增一行 ✅
-```
-</details>
+由各领域的 CXO 掌管，只有经过 Ops Hub 派发，他们才能且必须通过 Tool Calling 直接读写你的 PostgreSQL 数据表：
 
-<details>
-<summary><b>场景二：心愿目标 —— "我想买一台6800的电脑"</b></summary>
+| 执行高管 | 代号 | 执掌领域与业务边界 | 核心功能演示 / 工具权限 (Tool Calling) |
+|:---|:---|:---|:---|
+| 💰 **首席财务官 (CFO)** | `finance` | **账本与钱包。** 记账、死守预算红线，全权管理心愿兑换池（Wishlist）和你的期权积分扣减。 | `record_transaction`, `check_budget`, `create_wishlist_goal`, `redeem_wishlist_goal` |
+| ⚙️ **首席运营官 (COO)** | `operations` | **目标与纪律。** 把你所有的行动排期，管理 Kanban 和 OKR 看板，追踪每日早睡早起打卡，给你发放自律积分。 | `create_task`, `complete_task` |
+| 🛡️ **首席审计官 (CAO / Chief Auditor)** | `audit` | **秋后算账（Phase 7 引入）。** 每晚 23:00 准时盘点你的任务达成率。不工作就直接被生成极低“效率评分”和满级“拖延指数”。 | （无数据库修改权，仅具备全量阅读与**毒舌点评权**） |
+| 🏠 **行政总监 (Admin/CAO)** | `admin` | **物资与防呆。** 拦住你乱买卫生纸的冲动，管理你的固定资产、各种到期证件和账号密码。 | `add_fixed_asset` |
+| 📚 **人力资源长 (CHRO)** | `hr` | **能力与经验值。** 你的升级打怪。管理你的技能树系统、职级晋升体系、记录学习资料、甚至是做心理压力监控。 | （知识图谱记录与技能升级引擎） |
+| 🤝 **首席公关官 (CPO)** | `pr` | **社交与人脉。** 帮你记住家人的生日、提醒你老朋友很久没联系了应当“客情维护”、管理你的送礼/收礼清单。 | （人脉关系网追踪预警） |
+| 🩺 **首席健康官 (CWO)** | `health` | **碳基载体维护。** 监控你的摄入热量、体质指标和用药规律。甚至可以向审核委员会要求弹劾你高脂饮食的预算。 | （体测追踪与禁忌警告） |
+| 💻 **首席技术官 (CTO)** | `rd` | **技能研发池。** 负责把你的发散新点子（Side Projects）孵化、追踪，不让想法停留在脑子里，而是转化成个人资产库。 | （项目立项与文档管理） |
+| 💰 **首席商务官 (CSO)** | `commerce` | **搞钱与恰饭。** 帮你谋划副业、商业谈判、追踪 ROI 、寻找额外收入流。 | （副业追踪与收入核算） |
+| ⚖️ **首席法务官 (CLO)** | `legal` | **绝境长城。** 替你审核劳动合同、租房协议，追踪各类保险续费和维权纠纷。 | `contract_risk_analysis` (建设中) |
+| 🧳 **差旅后勤官 (Travel)** | `travel` | **向外探索。** 安排出行路书、航班提醒、标准防呆打包行李清单、批量差旅报销结算回表。 | （行程生成与批量报销记账） |
 
-```
-CEO: "我想买一台6800元的电脑"
-  │
-  ├─→ Strategy 拆解:
-  │     ├─ 派给 CFO: 创建心愿目标 (不是直接扣款！)
-  │     └─ 派给 COO: 制定每日积分任务计划
-  │
-  ├─→ Review 审核: 心愿目标机制，不涉及直接支出 ✅ APPROVE
-  │
-  ├─→ CFO 执行: create_wishlist_goal(name="电脑", target_points=6800)
-  │     └─→ wishlist_items 表新增目标 ✅
-  │
-  └─→ COO 执行: create_task(title="每日背50个单词", points_reward=100)
-        └─→ tasks 表新增带积分的任务 ✅
-
-... 每天完成任务 ...
-
-CEO: "我今天背完单词了"
-  └─→ COO: complete_task(task_id=X)
-       ├─→ tasks 状态 → done
-       ├─→ points_logs +100 积分
-       └─→ 心愿进度: 100/6800 (1.5%)
-
-... 积分达标后 ...
-
-CEO: "积分够了，兑换电脑"
-  └─→ CFO: redeem_wishlist_goal(wishlist_id=X)
-       ├─→ points_logs -6800 积分
-       └─→ wishlist_items 状态 → redeemed 🎉
-```
-</details>
+> **注：** Mycrop 的本质在于，执行部门 **绝对不允许** 绕过 审核委员会(Review) 直接对你的生活发起任何重大变更。即便是“我想买台电脑”，也必须走**心愿兑换目标 → 发放任务 → 赚取积分 → CFO核准扣款**的完整闭环。这也是 14 位 Agent 能在一个沙盒里不互相打架的核心机制。
 
 ---
 
@@ -286,14 +259,15 @@ curl -X POST http://localhost:3002/api/missions/execute \
 
 | 阶段 | 状态 | 目标 | 核心产出 |
 |:---:|:---:|:---|:---|
-| **Phase 0** | ✅ | **基石建设** | 九大表结构就绪；标准 CRUD 与 React UI 骨架贯通 |
-| **Phase 1** | ✅ | **趣味翻新** | Framer Motion 转场；早会对话气泡；Persona Studio；11 部门大厦视角 |
-| **Phase 2** | ✅ | **AI 脑核装入** | 4 名核心角色注入 System Prompt；接入 DeepSeek LLM API；Triage 与 Morning Brief |
-| **Phase 3** | ✅ | **多轮博弈流** | `Strategy → Review → Dispatch` 强约束流水线；4 层容错处理器 |
-| **Phase 4** | ✅ | **沉浸与记忆** | 本地 `@xenova/transformers` 向量服务；PostgreSQL `pgvector` 长效记忆 |
-| **Phase 5** | ✅ | **部门执行器** | Agent Executor 引擎；CFO/COO/CAO 真实 Tool Calling 操作数据库 |
-| **Phase 5.5** | ✅ | **积分兑换目标** | 心愿目标创建、积分追踪、任务奖励绑定、达标兑换全链路 |
-| **Phase 6** | 🔜 | **前端执行面板** | 可视化 Agent 思考过程、工具调用、积分进度仪表盘 |
+| **Phase 0** | ✅ | **基石建设** | PostgreSQL 九大业务域表结构就绪；React + Node.js 全栈 CRUD 联通。 |
+| **Phase 1** | ✅ | **趣味视效增强** | 引入 `framer-motion` 与 `pixi.js`；构建 2.5D 公司大楼视图与早会气泡动效。 |
+| **Phase 2** | ✅ | **单节点智能引擎** | 接入 DeepSeek/OpenAI LLM；四大核心高管注入 System Prompt (Triage/Strategy)。 |
+| **Phase 3** | ✅ | **多轮博弈工作流** | 确立 `Strategy → Review → Dispatch` 强约束流水线；实现审核驳回机制与四层容错。 |
+| **Phase 4** | ✅ | **本地长效记忆** | 基于 `@xenova/transformers` 与 `pgvector` 赋予高管 Semantic Search 行为追溯能力。 |
+| **Phase 5** | ✅ | **部门执行器落地** | 抛弃模拟日志，CFO/COO/CAO 接入真实 Tool Calling，直接操作数据库记录账单与任务。 |
+| **Phase 5.5** | ✅ | **积分别墅兑换** | 心愿目标池 (Wishlist) 建立；完成任务发放 Reward 积分，积分达标方可兑换贵重物品。 |
+| **Phase 6** | ✅ | **运营部全战力重构** | 将 ToDo 彻底重构为 **CEO 巡视指挥舱**：引入毛玻璃、霓虹发光进度条，强调大盘 KPI 与连击纪律。 |
+| **Phase 7** | 🔜 | **审计与反思引擎** | 新设 **首席审计官 (CAO)**：每日 23:00 自动盘点全公司意图达成率，产出带"拖延指数"的毒舌简报。 |
 
 完整的业务/技术演进推演：[📚 ME_CORP_2.0_BLUEPRINT.md](docs/ME_CORP_2.0_BLUEPRINT.md)
 

@@ -15,7 +15,8 @@ import {
     Code,
     DollarSign,
     MapPin,
-    Trophy
+    Trophy,
+    ShieldAlert
 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 
@@ -31,6 +32,7 @@ const departments = [
     { path: '/rd', icon: Code, label: '研发部', subtitle: '技能研发' },
     { path: '/commerce', icon: DollarSign, label: '商务部', subtitle: '商业谈判' },
     { path: '/travel', icon: MapPin, label: '差旅中心', subtitle: '行程规划' },
+    { path: '/audit', icon: ShieldAlert, label: '审计总部', subtitle: 'CAO 深夜复盘' },
     { path: '/achievements', icon: Trophy, label: '成就展示', subtitle: '成就系统' },
     { path: '/persona', icon: Users, label: '人设终端', subtitle: '高管配置' },
 ]

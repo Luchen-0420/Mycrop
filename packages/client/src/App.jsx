@@ -30,6 +30,7 @@ import Assets from './pages/admin/Assets'
 import Credentials from './pages/admin/Credentials'
 import Health from './pages/Health'
 import LegalLayout from './pages/legal/LegalLayout'
+import AuditDashboard from './pages/audit/AuditDashboard'
 import Contracts from './pages/legal/Contracts'
 import Insurances from './pages/legal/Insurances'
 import Disputes from './pages/legal/Disputes'
@@ -109,6 +110,7 @@ export default function App() {
                         <Route path="disputes" element={<Disputes />} />
                         <Route path="reminders" element={<Reminders />} />
                     </Route>
+                    <Route path="audit" element={<AuditDashboard />} />
                     <Route path="rd" element={<RDLayout />}>
                         <Route index element={<Navigate to="workshops" replace />} />
                         <Route path="workshops" element={<Workshops />} />
