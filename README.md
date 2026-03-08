@@ -214,35 +214,57 @@ CEO: "积分够了，兑换电脑"
 
 ## 🚀 快速体验
 
-### 前置要求
-- **Node.js** ≥ 18
-- **PostgreSQL** ≥ 14（需启用 `pgvector` 扩展）
-- 一个 LLM API Key（推荐 [DeepSeek](https://platform.deepseek.com/)，也支持 OpenAI 兼容接口）
+### 方式一：🐳 Docker 一键部署（推荐）
 
-### 本地运行
+> 零配置启动，自动拉起 PostgreSQL + pgvector + 后端 + 前端。
 
 ```bash
 # 1. 克隆代码
 git clone https://github.com/Luchen-0420/Mycrop.git
 cd Mycrop
 
-# 2. 安装依赖 (Monorepo)
-npm install
+# 2. 配置环境变量
+cp packages/server/.env.example .env
+# 编辑 .env，填入你的 LLM API Key:
+#   LLM_API_KEY=sk-xxxxxxxx
 
-# 3. 环境变量配置 🔑
-cp packages/server/.env.example packages/server/.env
-# 编辑 .env，填入以下关键配置：
-#   LLM_API_KEY=你的API密钥
-#   LLM_BASE_URL=https://api.deepseek.com  (或其他 OpenAI 兼容地址)
-#   LLM_MODEL=deepseek-chat
-#   DATABASE_URL=postgresql://用户名:密码@localhost:5432/mecorp
+# 3. 一键启动 🚀
+docker compose up -d
 
-# 4. 前后端双开
-npm run dev
-# 自动并发启动：
-#   Frontend → http://localhost:5173
-#   Backend  → http://localhost:3002
+# 访问:
+#   🖥️ 前端 → http://localhost
+#   🔌 API → http://localhost:3002
 ```
+
+```bash
+# 常用操作
+docker compose logs -f server   # 查看后端日志（含 Agent 思考过程）
+docker compose down              # 停止所有服务
+docker compose down -v           # 停止并清除数据
+```
+
+### 方式二：本地开发运行
+
+<details>
+<summary>展开查看本地开发指南</summary>
+
+**前置要求**：Node.js ≥ 18 · PostgreSQL ≥ 14（需启用 pgvector） · LLM API Key
+
+```bash
+# 1. 克隆 & 安装
+git clone https://github.com/Luchen-0420/Mycrop.git
+cd Mycrop && npm install
+
+# 2. 环境变量
+cp packages/server/.env.example packages/server/.env
+# 编辑 .env 填入 LLM_API_KEY、数据库连接等
+
+# 3. 前后端双开
+npm run dev
+# Frontend → http://localhost:5173
+# Backend  → http://localhost:3002
+```
+</details>
 
 ### 测试 Agent 执行
 
