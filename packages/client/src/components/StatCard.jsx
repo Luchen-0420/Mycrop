@@ -1,4 +1,5 @@
 import { TrendingUp, TrendingDown } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export default function StatCard({ title, value, subtitle, trend, trendValue, icon: Icon, color = 'blue' }) {
     const colorMap = {
@@ -20,7 +21,11 @@ export default function StatCard({ title, value, subtitle, trend, trendValue, ic
     }
 
     return (
-        <div className={`corp-card bg-gradient-to-br ${colorMap[color]}`}>
+        <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className={`corp-card bg-gradient-to-br ${colorMap[color]}`}
+        >
             <div className="flex items-start justify-between mb-3">
                 <p className="text-sm text-corp-muted font-medium">{title}</p>
                 {Icon && <Icon size={20} className={iconColorMap[color]} />}
@@ -35,6 +40,6 @@ export default function StatCard({ title, value, subtitle, trend, trendValue, ic
                 )}
                 {subtitle && <span className="text-xs text-corp-muted">{subtitle}</span>}
             </div>
-        </div>
+        </motion.div>
     )
 }

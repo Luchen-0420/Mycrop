@@ -1,0 +1,2 @@
+
+60d63567476e0f21a798b3ddb6580656f9fdaa28	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/lucide-react","integrity":null,"time":1772939489419,"size":"262","metadata":{"time":1772939489418,"url":"https://registry.npm.taobao.org/lucide-react","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 03:11:29 GMT","location":"https://registry.npmmirror.com/lucide-react"},"options":{"compress":true},"status":301}}

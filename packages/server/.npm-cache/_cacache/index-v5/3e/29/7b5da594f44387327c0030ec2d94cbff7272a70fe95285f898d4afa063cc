@@ -1,0 +1,2 @@
+
+6fb3ff9b41f45da85a90dc1aa23632fb27c4321c	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/openai","integrity":null,"time":1772942913031,"size":"262","metadata":{"time":1772942913031,"url":"https://registry.npm.taobao.org/openai","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 04:08:32 GMT","location":"https://registry.npmmirror.com/openai"},"options":{"compress":true},"status":301}}

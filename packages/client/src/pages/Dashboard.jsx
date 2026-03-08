@@ -18,6 +18,9 @@ import {
 } from 'recharts'
 import StatCard from '../components/StatCard'
 import PageHeader from '../components/PageHeader'
+import DailyBriefing from '../components/DailyBriefing'
+import ReviewBoard from '../components/ReviewBoard'
+import VirtualFloor from '../components/VirtualFloor'
 
 const netWorthData = [
     { month: '9月', value: 42000 },
@@ -54,20 +57,14 @@ export default function Dashboard() {
 
     return (
         <div>
-            <PageHeader icon={LayoutDashboard} title="总裁办" subtitle="CEO Dashboard — 企业运营总览">
-                <div className="text-sm text-corp-muted font-mono">{today}</div>
+            <PageHeader icon={LayoutDashboard} title="总裁办" subtitle="CEO 模拟经营大盘 — 全局监控">
+                <div className="text-sm text-corp-muted font-mono bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg backdrop-blur-md">{today}</div>
             </PageHeader>
 
-            {/* Welcome Banner */}
-            <div className="corp-card mb-6 bg-gradient-to-r from-corp-accent/10 to-purple-500/5 border-corp-accent/20">
-                <div className="flex items-center gap-3">
-                    <Sparkles size={20} className="text-corp-accent-light" />
-                    <div>
-                        <p className="text-white font-semibold">早上好，CEO。</p>
-                        <p className="text-sm text-corp-muted">今日公司运行状态良好。5 项待办事项，1 项预警需要关注。</p>
-                    </div>
-                </div>
-            </div>
+            {/* Stanford Town Virtual Map UI */}
+            <VirtualFloor />
+
+            <DailyBriefing />
 
             {/* KPI Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
@@ -82,7 +79,7 @@ export default function Dashboard() {
             {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                 {/* Net Worth Trend */}
-                <div className="corp-card lg:col-span-2">
+                <div className="corp-card lg:col-span-2 group">
                     <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
                         <TrendingUp size={16} className="text-corp-accent-light" />
                         公司市值趋势（近6月）
@@ -91,38 +88,39 @@ export default function Dashboard() {
                         <AreaChart data={netWorthData}>
                             <defs>
                                 <linearGradient id="colorVal" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#4f6ef7" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#4f6ef7" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#2a2f4a" />
-                            <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 12 }} />
-                            <YAxis tick={{ fill: '#64748b', fontSize: 12 }} />
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                            <XAxis dataKey="month" tick={{ fill: '#94a3b8', fontSize: 12, fontFamily: 'Outfit' }} axisLine={false} tickLine={false} />
+                            <YAxis tick={{ fill: '#94a3b8', fontSize: 12, fontFamily: 'Outfit' }} axisLine={false} tickLine={false} />
                             <Tooltip
-                                contentStyle={{ background: '#1a1f36', border: '1px solid #2a2f4a', borderRadius: 8, color: '#e2e8f0' }}
+                                contentStyle={{ background: 'rgba(20,20,25,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, color: '#f8fafc', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
+                                itemStyle={{ color: '#c084fc', fontWeight: 'bold' }}
                             />
-                            <Area type="monotone" dataKey="value" stroke="#4f6ef7" fill="url(#colorVal)" strokeWidth={2} />
+                            <Area type="monotone" dataKey="value" stroke="#c084fc" fill="url(#colorVal)" strokeWidth={3} activeDot={{ r: 6, fill: '#c084fc', stroke: '#fff', strokeWidth: 2 }} />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>
 
                 {/* Asset Allocation Pie */}
-                <div className="corp-card">
+                <div className="corp-card group">
                     <h3 className="text-sm font-semibold text-white mb-4">资产配置</h3>
                     <ResponsiveContainer width="100%" height={180}>
                         <PieChart>
-                            <Pie data={assetPie} cx="50%" cy="50%" innerRadius={50} outerRadius={75} dataKey="value" paddingAngle={3}>
+                            <Pie data={assetPie} cx="50%" cy="50%" innerRadius={55} outerRadius={75} dataKey="value" paddingAngle={5} stroke="none">
                                 {assetPie.map((entry) => (
                                     <Cell key={entry.name} fill={entry.color} />
                                 ))}
                             </Pie>
-                            <Tooltip contentStyle={{ background: '#1a1f36', border: '1px solid #2a2f4a', borderRadius: 8, color: '#e2e8f0' }} />
+                            <Tooltip contentStyle={{ background: 'rgba(20,20,25,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, color: '#f8fafc', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} itemStyle={{ fontWeight: 'bold' }} />
                         </PieChart>
                     </ResponsiveContainer>
-                    <div className="flex flex-wrap gap-3 mt-2">
+                    <div className="flex flex-wrap justify-center gap-3 mt-4">
                         {assetPie.map((a) => (
-                            <div key={a.name} className="flex items-center gap-1.5 text-xs text-corp-muted">
-                                <span className="w-2.5 h-2.5 rounded-full" style={{ background: a.color }} />
+                            <div key={a.name} className="flex items-center gap-1.5 text-xs text-corp-muted font-medium">
+                                <span className="w-3 h-3 rounded-full" style={{ background: a.color, boxShadow: `0 0 10px ${a.color}80` }} />
                                 {a.name}
                             </div>
                         ))}
@@ -131,7 +129,9 @@ export default function Dashboard() {
             </div>
 
             {/* Bottom Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <ReviewBoard />
+
                 {/* Today Tasks */}
                 <div className="corp-card">
                     <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
@@ -140,29 +140,30 @@ export default function Dashboard() {
                     </h3>
                     <div className="space-y-2">
                         {todayTasks.map((t) => (
-                            <div key={t.id} className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-white/[.03] transition">
-                                <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center ${t.done ? 'bg-corp-accent border-corp-accent' : 'border-corp-border'
+                            <div key={t.id} className="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-white/[.05] transition cursor-pointer group">
+                                <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${t.done ? 'bg-gradient-to-br from-purple-500 to-indigo-500 border-transparent shadow-glow' : 'border-white/20 group-hover:border-purple-400'
                                     }`}>
                                     {t.done && <CheckCircle2 size={14} className="text-white" />}
                                 </div>
-                                <span className={`text-sm ${t.done ? 'text-corp-muted line-through' : 'text-corp-text'}`}>{t.text}</span>
+                                <span className={`text-sm tracking-wide ${t.done ? 'text-corp-muted/50 line-through' : 'text-slate-200 group-hover:text-white transition-colors'}`}>{t.text}</span>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Alerts */}
-                <div className="corp-card">
-                    <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                <div className="corp-card relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-3xl rounded-full"></div>
+                    <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2 relative z-10">
                         <AlertTriangle size={16} className="text-amber-400" />
                         经营预警
                     </h3>
-                    <div className="space-y-3">
+                    <div className="space-y-3 relative z-10">
                         {alerts.map((a, i) => (
-                            <div key={i} className={`flex items-start gap-3 p-3 rounded-lg ${a.type === 'warning' ? 'bg-amber-500/5 border border-amber-500/15' : 'bg-blue-500/5 border border-blue-500/15'
+                            <div key={i} className={`flex items-start gap-3 p-3.5 rounded-xl backdrop-blur-md border ${a.type === 'warning' ? 'bg-amber-500/10 border-amber-500/20 shadow-[0_4px_20px_rgba(245,158,11,0.05)]' : 'bg-blue-500/10 border-blue-500/20 shadow-[0_4px_20px_rgba(59,130,246,0.05)]'
                                 }`}>
                                 <AlertTriangle size={16} className={a.type === 'warning' ? 'text-amber-400 mt-0.5' : 'text-blue-400 mt-0.5'} />
-                                <p className="text-sm text-corp-text">{a.text}</p>
+                                <p className="text-sm text-slate-200 tracking-wide leading-relaxed">{a.text}</p>
                             </div>
                         ))}
                     </div>

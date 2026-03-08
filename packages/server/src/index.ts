@@ -56,6 +56,10 @@ app.use('/api/commerce', commerceRoutes)
 // Travel Routes
 app.use('/api/travel', travelRoutes)
 
+// AI Agents Route
+import agentsRoutes from './routes/agents'
+app.use('/api/agents', agentsRoutes)
+
 // Placeholder routes for departments
 app.get('/api/dashboard/stats', (_req, res) => {
     res.json({

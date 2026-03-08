@@ -1,0 +1,2 @@
+
+1acae8233cc4e97f18f7a3f3649fa91da002a2ba	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/zod","integrity":null,"time":1772942913393,"size":"262","metadata":{"time":1772942913393,"url":"https://registry.npm.taobao.org/zod","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 04:08:33 GMT","location":"https://registry.npmmirror.com/zod"},"options":{"compress":true},"status":301}}

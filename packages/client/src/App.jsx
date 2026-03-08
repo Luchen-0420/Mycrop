@@ -2,6 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
 import Dashboard from './pages/Dashboard'
+import Achievements from './pages/gamification/Achievements'
+import PersonaStudio from './pages/gamification/PersonaStudio'
 import FinanceLayout from './pages/finance/FinanceLayout'
 import Ledger from './pages/finance/Ledger'
 import Budget from './pages/finance/Budget'
@@ -63,6 +65,8 @@ export default function App() {
             <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Dashboard />} />
+                    <Route path="achievements" element={<Achievements />} />
+                    <Route path="persona" element={<PersonaStudio />} />
                     <Route path="finance" element={<FinanceLayout />}>
                         <Route index element={<Navigate to="ledger" replace />} />
                         <Route path="ledger" element={<Ledger />} />
