@@ -1,0 +1,2 @@
+
+5550e5c40336f4a0f1e9b63fb874980142e51b57	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/jsonwebtoken","integrity":null,"time":1772421187376,"size":"262","metadata":{"time":1772421187376,"url":"https://registry.npm.taobao.org/jsonwebtoken","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Mon, 02 Mar 2026 03:13:06 GMT","location":"https://registry.npmmirror.com/jsonwebtoken"},"options":{"compress":true},"status":301}}

@@ -1,0 +1,2 @@
+
+e5988b7cbb43854f774b3d9fcaea2af0be3ffc9a	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/scheduler","integrity":null,"time":1772011663783,"size":"262","metadata":{"time":1772011663783,"url":"https://registry.npm.taobao.org/scheduler","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:42 GMT","location":"https://registry.npmmirror.com/scheduler"},"options":{"compress":true},"status":301}}

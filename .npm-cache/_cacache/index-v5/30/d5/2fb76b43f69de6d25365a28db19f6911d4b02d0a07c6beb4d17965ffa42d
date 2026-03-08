@@ -1,0 +1,2 @@
+
+f1ef1faa74b93f2bcb4861527a6a961e5b1860bb	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/pgpass","integrity":null,"time":1772011674090,"size":"262","metadata":{"time":1772011674090,"url":"https://registry.npm.taobao.org/pgpass","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:52 GMT","location":"https://registry.npmmirror.com/pgpass"},"options":{"compress":true},"status":301}}

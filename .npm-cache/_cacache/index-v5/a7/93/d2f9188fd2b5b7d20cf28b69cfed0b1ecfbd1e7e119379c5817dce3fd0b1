@@ -1,0 +1,2 @@
+
+21b27208f4045a7c5f480e7bf80bb554640ad3b8	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/node-gyp-build","integrity":null,"time":1772421188801,"size":"262","metadata":{"time":1772421188801,"url":"https://registry.npm.taobao.org/node-gyp-build","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Mon, 02 Mar 2026 03:13:08 GMT","location":"https://registry.npmmirror.com/node-gyp-build"},"options":{"compress":true},"status":301}}

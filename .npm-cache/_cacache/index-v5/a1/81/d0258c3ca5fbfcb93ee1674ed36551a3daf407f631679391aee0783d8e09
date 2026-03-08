@@ -1,0 +1,2 @@
+
+fe6c5b3f3826e179e70a2f8ff40ac815a0c16758	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/content-disposition","integrity":null,"time":1772011672698,"size":"262","metadata":{"time":1772011672698,"url":"https://registry.npm.taobao.org/content-disposition","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:51 GMT","location":"https://registry.npmmirror.com/content-disposition"},"options":{"compress":true},"status":301}}

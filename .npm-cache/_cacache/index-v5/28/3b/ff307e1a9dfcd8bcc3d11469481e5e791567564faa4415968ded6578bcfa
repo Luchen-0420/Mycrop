@@ -1,0 +1,2 @@
+
+8abf60a460d0e6db9bf98c096e827ed209ad9cb3	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/autoprefixer","integrity":null,"time":1772011660191,"size":"262","metadata":{"time":1772011660191,"url":"https://registry.npm.taobao.org/autoprefixer","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:39 GMT","location":"https://registry.npmmirror.com/autoprefixer"},"options":{"compress":true},"status":301}}

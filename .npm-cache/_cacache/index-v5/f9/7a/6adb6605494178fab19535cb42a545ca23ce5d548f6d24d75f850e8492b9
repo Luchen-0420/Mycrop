@@ -1,0 +1,2 @@
+
+f763e024c15f264cdb15a9140a7eb94fa156873f	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/proxy-addr","integrity":null,"time":1772011673661,"size":"262","metadata":{"time":1772011673661,"url":"https://registry.npm.taobao.org/proxy-addr","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:52 GMT","location":"https://registry.npmmirror.com/proxy-addr"},"options":{"compress":true},"status":301}}

@@ -1,0 +1,2 @@
+
+b9e7ba9416fd791b87b990ca361cca18ab3d2738	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/micromatch","integrity":null,"time":1772011664962,"size":"262","metadata":{"time":1772011664962,"url":"https://registry.npm.taobao.org/micromatch","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:43 GMT","location":"https://registry.npmmirror.com/micromatch"},"options":{"compress":true},"status":301}}

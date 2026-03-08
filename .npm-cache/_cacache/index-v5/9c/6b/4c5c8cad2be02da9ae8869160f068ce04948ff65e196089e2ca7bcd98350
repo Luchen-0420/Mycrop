@@ -1,0 +1,2 @@
+
+ba366917dc2fe124a1c8c62401826336ad9a0c22	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/d3-time","integrity":null,"time":1772011688068,"size":"262","metadata":{"time":1772011688068,"url":"https://registry.npm.taobao.org/d3-time","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:06 GMT","location":"https://registry.npmmirror.com/d3-time"},"options":{"compress":true},"status":301}}

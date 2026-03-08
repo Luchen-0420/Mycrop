@@ -1,0 +1,2 @@
+
+7fb22f74701df36121c4804fa34b9c26831f07b5	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/split2","integrity":null,"time":1772011684879,"size":"262","metadata":{"time":1772011684879,"url":"https://registry.npm.taobao.org/split2","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:03 GMT","location":"https://registry.npmmirror.com/split2"},"options":{"compress":true},"status":301}}

@@ -1,0 +1,2 @@
+
+2771ffba2275b0709c8bebd0af47050fbdeffec4	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/vite","integrity":null,"time":1772011651422,"size":"262","metadata":{"time":1772011651422,"url":"https://registry.npm.taobao.org/vite","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:30 GMT","location":"https://registry.npmmirror.com/vite"},"options":{"compress":true},"status":301}}

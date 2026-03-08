@@ -1,0 +1,2 @@
+
+62205114e10071bdfe5bf4cc58ca010ec64ccfdc	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/node-addon-api","integrity":null,"time":1772421188025,"size":"262","metadata":{"time":1772421188025,"url":"https://registry.npm.taobao.org/node-addon-api","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Mon, 02 Mar 2026 03:13:07 GMT","location":"https://registry.npmmirror.com/node-addon-api"},"options":{"compress":true},"status":301}}

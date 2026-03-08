@@ -1,0 +1,2 @@
+
+02f43425e9899e59fa46ff51ca81c6e9c2aaae57	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/pg-cloudflare","integrity":null,"time":1772011674359,"size":"262","metadata":{"time":1772011674359,"url":"https://registry.npm.taobao.org/pg-cloudflare","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:53 GMT","location":"https://registry.npmmirror.com/pg-cloudflare"},"options":{"compress":true},"status":301}}

@@ -1,0 +1,2 @@
+
+2604f1d3f8e4719279ddf60828892e4eaf09d3c4	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/glob-parent","integrity":null,"time":1772011664884,"size":"262","metadata":{"time":1772011664884,"url":"https://registry.npm.taobao.org/glob-parent","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:43 GMT","location":"https://registry.npmmirror.com/glob-parent"},"options":{"compress":true},"status":301}}

@@ -1,0 +1,2 @@
+
+a24812abbb76aab62a412c799d4f1720d7234bfb	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/@esbuild%2flinux-ppc64","integrity":null,"time":1772011698521,"size":"262","metadata":{"time":1772011698521,"url":"https://registry.npm.taobao.org/@esbuild%2flinux-ppc64","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:17 GMT","location":"https://registry.npmmirror.com/@esbuild%2flinux-ppc64"},"options":{"compress":true},"status":301}}

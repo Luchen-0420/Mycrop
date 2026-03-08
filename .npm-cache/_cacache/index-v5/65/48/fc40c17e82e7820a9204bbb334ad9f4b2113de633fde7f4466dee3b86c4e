@@ -1,0 +1,2 @@
+
+9e59de5cd8056b247887d40e17bc327d2b47f027	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/prop-types","integrity":null,"time":1772011687519,"size":"262","metadata":{"time":1772011687519,"url":"https://registry.npm.taobao.org/prop-types","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:06 GMT","location":"https://registry.npmmirror.com/prop-types"},"options":{"compress":true},"status":301}}

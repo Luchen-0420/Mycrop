@@ -1,0 +1,2 @@
+
+064a772a5e978768e233077cfb8242272769c603	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/@esbuild%2flinux-loong64","integrity":null,"time":1772011698514,"size":"262","metadata":{"time":1772011698514,"url":"https://registry.npm.taobao.org/@esbuild%2flinux-loong64","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:17 GMT","location":"https://registry.npmmirror.com/@esbuild%2flinux-loong64"},"options":{"compress":true},"status":301}}

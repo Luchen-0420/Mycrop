@@ -1,0 +1,2 @@
+
+c1e611535c80609f68858b314f3f738cf2e61c9a	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/jwt-simple","integrity":null,"time":1772421275428,"size":"262","metadata":{"time":1772421275427,"url":"https://registry.npm.taobao.org/jwt-simple","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Mon, 02 Mar 2026 03:14:34 GMT","location":"https://registry.npmmirror.com/jwt-simple"},"options":{"compress":true},"status":301}}

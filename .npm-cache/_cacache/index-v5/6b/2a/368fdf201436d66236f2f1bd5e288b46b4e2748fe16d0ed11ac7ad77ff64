@@ -1,0 +1,2 @@
+
+02480401b20a36a4c913e64b444ad2a302ab31d0	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/resolve-pkg-maps","integrity":null,"time":1772011699151,"size":"262","metadata":{"time":1772011699151,"url":"https://registry.npm.taobao.org/resolve-pkg-maps","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:18 GMT","location":"https://registry.npmmirror.com/resolve-pkg-maps"},"options":{"compress":true},"status":301}}

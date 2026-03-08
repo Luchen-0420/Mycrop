@@ -1,0 +1,2 @@
+
+e0511ab4c6b5614e3b6f089392c45d9862cfb2bc	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/is-glob","integrity":null,"time":1772011664896,"size":"262","metadata":{"time":1772011664896,"url":"https://registry.npm.taobao.org/is-glob","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:43 GMT","location":"https://registry.npmmirror.com/is-glob"},"options":{"compress":true},"status":301}}

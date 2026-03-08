@@ -1,0 +1,2 @@
+
+46abfd5537bb65284ffb8f358b23a7e712cee330	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/@esbuild%2flinux-riscv64","integrity":null,"time":1772011698519,"size":"262","metadata":{"time":1772011698519,"url":"https://registry.npm.taobao.org/@esbuild%2flinux-riscv64","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:17 GMT","location":"https://registry.npmmirror.com/@esbuild%2flinux-riscv64"},"options":{"compress":true},"status":301}}

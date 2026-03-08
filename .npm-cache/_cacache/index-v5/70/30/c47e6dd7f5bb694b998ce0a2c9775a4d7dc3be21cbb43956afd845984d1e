@@ -1,0 +1,2 @@
+
+354ad2d81b62be6692c78285ee081d3916652748	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/nanoid","integrity":null,"time":1772011663315,"size":"262","metadata":{"time":1772011663315,"url":"https://registry.npm.taobao.org/nanoid","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:42 GMT","location":"https://registry.npmmirror.com/nanoid"},"options":{"compress":true},"status":301}}

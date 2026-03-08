@@ -1,0 +1,2 @@
+
+d366a7a3fb101e130f5ddb2ece301787399facc5	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/pg-connection-string","integrity":null,"time":1772011674065,"size":"262","metadata":{"time":1772011674065,"url":"https://registry.npm.taobao.org/pg-connection-string","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:52 GMT","location":"https://registry.npmmirror.com/pg-connection-string"},"options":{"compress":true},"status":301}}

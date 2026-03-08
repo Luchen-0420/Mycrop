@@ -1,0 +1,2 @@
+
+0121043b02533cb3940c6673441ee0d5d648b636	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/forwarded","integrity":null,"time":1772011682754,"size":"262","metadata":{"time":1772011682754,"url":"https://registry.npm.taobao.org/forwarded","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:28:01 GMT","location":"https://registry.npmmirror.com/forwarded"},"options":{"compress":true},"status":301}}

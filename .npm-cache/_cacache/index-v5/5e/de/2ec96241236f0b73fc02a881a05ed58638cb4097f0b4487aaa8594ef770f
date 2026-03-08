@@ -1,0 +1,2 @@
+
+d64ccb8202f2ebe03a0eb93166ef9591044ff870	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/pdf-parse","integrity":null,"time":1772614565774,"size":"262","metadata":{"time":1772614565774,"url":"https://registry.npm.taobao.org/pdf-parse","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 04 Mar 2026 08:56:05 GMT","location":"https://registry.npmmirror.com/pdf-parse"},"options":{"compress":true},"status":301}}

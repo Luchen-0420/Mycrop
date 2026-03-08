@@ -1,0 +1,2 @@
+
+cc6d899a0e963e12eee3437bc67328c539340bf4	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/bcrypt","integrity":null,"time":1772421186532,"size":"262","metadata":{"time":1772421186532,"url":"https://registry.npm.taobao.org/bcrypt","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Mon, 02 Mar 2026 03:13:05 GMT","location":"https://registry.npmmirror.com/bcrypt"},"options":{"compress":true},"status":301}}

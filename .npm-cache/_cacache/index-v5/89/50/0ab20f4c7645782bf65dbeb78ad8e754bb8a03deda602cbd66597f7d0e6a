@@ -1,0 +1,2 @@
+
+38805c97f01640c303ccbe6991907ec617eb8c02	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/postgres-interval","integrity":null,"time":1772011677069,"size":"262","metadata":{"time":1772011677069,"url":"https://registry.npm.taobao.org/postgres-interval","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:55 GMT","location":"https://registry.npmmirror.com/postgres-interval"},"options":{"compress":true},"status":301}}

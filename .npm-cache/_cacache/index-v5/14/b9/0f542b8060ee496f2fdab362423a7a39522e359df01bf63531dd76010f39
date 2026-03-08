@@ -1,0 +1,2 @@
+
+badb2874940cb8e2131f777568258bd72bfdcc10	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/array-flatten","integrity":null,"time":1772011672694,"size":"262","metadata":{"time":1772011672694,"url":"https://registry.npm.taobao.org/array-flatten","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Wed, 25 Feb 2026 09:27:51 GMT","location":"https://registry.npmmirror.com/array-flatten"},"options":{"compress":true},"status":301}}
