@@ -1,0 +1,2 @@
+
+05aff7064c5c6b1c89b921dd85e7038170ce02f0	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/@pixi%2fevents","integrity":null,"time":1772968583745,"size":"262","metadata":{"time":1772968583745,"url":"https://registry.npm.taobao.org/@pixi%2fevents","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 11:16:23 GMT","location":"https://registry.npmmirror.com/@pixi%2fevents"},"options":{"compress":true},"status":301}}

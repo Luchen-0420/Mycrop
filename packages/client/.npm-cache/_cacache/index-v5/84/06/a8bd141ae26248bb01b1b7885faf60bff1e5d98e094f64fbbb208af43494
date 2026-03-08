@@ -1,0 +1,2 @@
+
+6cfd070af82bf8779a31c277ae99c825a693f25b	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/ismobilejs","integrity":null,"time":1772968584302,"size":"262","metadata":{"time":1772968584302,"url":"https://registry.npm.taobao.org/ismobilejs","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 11:16:23 GMT","location":"https://registry.npmmirror.com/ismobilejs"},"options":{"compress":true},"status":301}}

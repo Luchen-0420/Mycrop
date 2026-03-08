@@ -1,0 +1,2 @@
+
+a917bf7f8a81c6e8c66f9fae1fd23d73f46a220e	{"key":"make-fetch-happen:request-cache:https://registry.npm.taobao.org/earcut","integrity":null,"time":1772968584301,"size":"262","metadata":{"time":1772968584301,"url":"https://registry.npm.taobao.org/earcut","reqHeaders":{"accept":"application/json"},"resHeaders":{"content-type":"text/html","date":"Sun, 08 Mar 2026 11:16:23 GMT","location":"https://registry.npmmirror.com/earcut"},"options":{"compress":true},"status":301}}

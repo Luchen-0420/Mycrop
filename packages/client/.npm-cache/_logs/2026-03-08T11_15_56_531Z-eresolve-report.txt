@@ -1,0 +1,26 @@
+'Log files:
+D:\idea\manage\packages\client\.npm-cache\_logs\2026-03-08T11_15_56_531Z-debug-0.log
+
+# npm resolution error report
+
+While resolving: @me-corp/client@1.0.0
+Found: react@18.3.1
+node_modules/react
+  react@"^18.3.1" from @me-corp/client@1.0.0
+  packages/client
+    @me-corp/client@1.0.0
+    node_modules/@me-corp/client
+      workspace packages\client from the root project
+
+Could not resolve dependency:
+peer react@">=19.0.0" from @pixi/react@8.0.5
+node_modules/@pixi/react
+  @pixi/react@"*" from @me-corp/client@1.0.0
+  packages/client
+    @me-corp/client@1.0.0
+    node_modules/@me-corp/client
+      workspace packages\client from the root project
+
+Fix the upstream dependency conflict, or retry
+this command with --force or --legacy-peer-deps
+to accept an incorrect (and potentially broken) dependency resolution.
