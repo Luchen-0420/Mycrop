@@ -9,9 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="#-核心机制">⚙️ 核心机制</a> ·
-  <a href="#-架构">🏛️ 架构</a> ·
-  <a href="#-趣味与游戏化">🎮 趣味游戏化</a> ·
+  <a href="#-为什么要做-mycrop">🤔 为什么</a> ·
+  <a href="#️-架构14-个智能体角色">🏛️ 架构</a> ·
+  <a href="#-各部门详细运转流程与业务协同">💼 部门协同</a> ·
+  <a href="#-核心亮点">✨ 亮点</a> ·
   <a href="#-快速体验">🚀 快速体验</a> ·
   <a href="docs/ME_CORP_2.0_BLUEPRINT.md">📚 完整蓝图</a>
 </p>
@@ -21,12 +22,14 @@
   <img src="https://img.shields.io/badge/Frontend-React_18_+_Vite-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React">
   <img src="https://img.shields.io/badge/Visuals-PixiJS_+_Framer_Motion-FF0055?style=flat-square" alt="Animation">
   <img src="https://img.shields.io/badge/Backend-Node.js_+_Express-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Backend">
-  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Database-PostgreSQL_+_pgvector-336791?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/LLM-DeepSeek_/_OpenAI-FF6600?style=flat-square" alt="LLM">
   <img src="https://img.shields.io/badge/License-MIT-22C55E?style=flat-square" alt="License">
 </p>
 
 ---
 
+<!-- GIF 占位 -->
 <p align="center">
   <i>👉 在这里放置展示 2.5D 公司大楼动效与早会气泡的 GIF (1) 👈</i>
 </p>
@@ -36,30 +39,34 @@
 
 ---
 
-## 🌟 核心特性速览 (Features)
+## 🌟 核心特性速览
 
-- [x] 👾 **沉浸式虚拟办公楼**：抛弃枯燥的表格，在 2.5D 的等距视角大厦中直观感受你的资产运作。
-- [x] 🧠 **14位 AI 高管系统**：细分财务、法务、行政权限，全方位接管你的生活决策。
-- [x] 💬 **社交化早会简报**：每天早晨通过生动的对话气泡，向你做全盘的数据述职。
-- [x] ⚖️ **强约束风控反演**：买大件物品？必须通过 CFO 和健康总监的联审，预算超标直接驳回。
-- [x] 💾 **本地 RAG 长效记忆**：基于本地 Transformer 与 PostgreSQL `pgvector`，让高管拥有对你历史行为的深刻记忆。
+- [x] 👾 **沉浸式虚拟办公楼** — 抛弃枯燥的表格，在 2.5D 等距视角大厦中直观感受你的资产运作。
+- [x] 🧠 **14 位 AI 高管系统** — 细分财务、法务、行政权限，全方位接管你的生活决策。
+- [x] 💬 **社交化早会简报** — 每天早晨通过生动的对话气泡，向你做全盘的数据述职。
+- [x] ⚖️ **强约束风控审核** — 买大件物品？必须通过 CFO 和健康总监的联审，预算超标直接驳回。
+- [x] 💾 **本地 RAG 长效记忆** — 基于本地 Transformer 与 PostgreSQL `pgvector`，让高管拥有对你历史行为的深刻记忆。
+- [x] 🎯 **积分兑换心愿系统** — 想买贵重物品？先发起心愿目标，通过每日完成任务赚积分，积分达标才能兑换！
+- [x] 🛠️ **真实数据库操作** — Agent 不再模拟执行，CFO/COO/CAO 直接通过 Tool Calling 操作 PostgreSQL。
+
+---
 
 ## 🤔 为什么要做 Mycrop？
 
 市面上的应用：
-- **Notion / 飞书**：功能强大，但冷冰冰的没有“陪伴感”。
+- **Notion / 飞书**：功能强大，但冷冰冰的没有"陪伴感"。
 - **番茄钟 / Forest**：有趣，但只能管特定的小事。
 - **多智能体框架 (Agent Frameworks)**：一群 AI 各自干活，干完就交，结果像开盲盒，容易失控（幻觉）。
 
 **Mycrop 的思路完全不同** —— 我们把你的生活当成一家公司来运转，并且引入了**强制的风控制度**：
 
-当你下达一条指令：*“下周三是我妈生日，预算 2000，帮我挑个礼物。”*
+当你下达一条指令：*"下周三是我妈生日，预算 2000，帮我挑个礼物。"*
 
 1. 📂 **战略规划办 (Strategy)** 会拆出子任务：CPO挑礼物、CFO批预算。
-2. 🛑 **审核委员会 (Review)** 会强制拦截审查。如果这个月“购物预算”超标了，CFO Agent 会直接 **REJECT（驳回）** 任务。
+2. 🛑 **审核委员会 (Review)** 会强制拦截审查。如果这个月"购物预算"超标了，CFO Agent 会直接 **REJECT（驳回）** 任务。
 3. 🛠️ **运营调度中心 (Ops)** 只有在审核通过后，才会把任务派发执行。
 
-> 这不是玩笑，**每一笔开销、每一个决定，都需要经过 AI 组成的“高管董事会”审议。**
+> 这不是玩笑，**每一笔开销、每一个决定，都需要经过 AI 组成的"高管董事会"审议。**
 
 ---
 
@@ -103,7 +110,7 @@
     └──────────┘ └──────────┘ └──────────┘ └──────────┘
 ```
 
-### 🔒 核心机制：权限不可僭越
+### 🔒 权限矩阵：不可僭越
 
 | | Strategy | Review | Ops Hub | 九大业务部门 | 
 |:---:|:---:|:---:|:---:|:---:|
@@ -120,36 +127,63 @@
 
 在 Mycrop 中，不仅有单一部门的操作，更涉及高度拟真、逻辑缜密的**跨部门协同 (Cross-Department Collaboration)**，让每一条随性的指令都经过严密的业务闭环。
 
-### 📌 部门独立运转工作流 (Execution Workflows)
+### 📌 部门独立运转工作流
 
-*   💰 **CFO（财务部 - Finance）**
-    *   **职责**：把控公司（你）的钱袋子，负责花销记账与风控。
-    *   **运转流程**：当 CEO 下达消费类指令时，CFO 首先根据工具树调用 `check_budget` 对比账面余额与月度预算红线。随后，调用 `record_transaction` 将交易严格记录到对应流水表，形成不可篡改的账本。
-*   ⚙️ **COO（运营部 - Operations）**
-    *   **职责**：将老板天马行空的灵感变成落地的生产力。
-    *   **运转流程**：梳理模糊的指令（如“下周我想读完这本书”），并调用 `create_task` 为目标进行排期、打上优先级标签（Low/High/Urgent），录入时间管理系统，并负责后期的进度催办。
-*   🏠 **CAO（行政部 - Admin）**
-    *   **职责**：大件资产管理与生命周期登记。
-    *   **运转流程**：当 CEO 购入电子产品、家居大件时，CAO 会迅速响应，调用 `add_fixed_asset`，登记资产类别、折旧预期及购买价格，确保高净值物品都在“固定资产库”中有迹可循。
+| 部门 | 代号 | 核心工具 | 职责 |
+|:---:|:---:|:---|:---|
+| 💰 **CFO** | `finance` | `record_transaction` · `check_budget` · `create_wishlist_goal` · `check_points_balance` · `redeem_wishlist_goal` | 管钱：记账、预算风控、心愿积分管理 |
+| ⚙️ **COO** | `operations` | `create_task` · `complete_task` | 管事：任务拆解、排期、积分奖励发放 |
+| 🏠 **CAO** | `admin` | `add_fixed_asset` | 管物：大件资产登记与生命周期追踪 |
 
-### 🤝 多部门协同实战示例：购买高额设备的完整生命周期
+### 🤝 多部门协同实战：两大核心场景
 
-当 CEO 在早会丢下一句粗放的指令：**“我刚刷卡花了 12000 买了一台 MacBook M3。”**
+<details>
+<summary><b>场景一：直接消费 —— "我花了30块喝了一杯星巴克"</b></summary>
 
-1.  **分拆指令 (Strategy - 战略办)**
-    *   战略办捕获意图，将笼统的话语拆解为**两个跨部门子任务**：
-        *   👉 派给 **CFO**：审核 12000 元预算并记录账单。
-        *   👉 派给 **CAO**：将这台 MacBook 登入固定资产库。
-2.  **强风控联审 (Review Board - 审批会)**
-    *   **CFO** 查阅 `check_budget` 发现本月“数码”预算仅剩 2000，立刻给出 **REJECT（一票否决）**。
-    *   （若预算充足：**审查通过**，进入执行环节）。
-3.  **并发执行 (Dispatch & Execute - 调度与操作)**
-    *   在 Ops Hub 中转后，相关部门 Agent 收到最终执行许可。
-    *   💸 **CFO 执行动作**：系统底层生成严格的 JSON Payload `{"tool_name": "record_transaction", "amount": 12000, "category": "数码电子"}`，PostgreSQL 钱包余额扣除。
-    *   🗃️ **CAO 执行动作**：同步生成 JSON Payload `{"tool_name": "add_fixed_asset", "name": "MacBook M3", "price": 12000}`，点亮资产图鉴。
-4.  **长时记忆锚定 (Memory Core - 归档检索)**
-    *   本次多部门协作结果，将无损转化为具备 Semantic Embedding 的词向量，塞入 RAG 本地脑核。
-    *   *彩蛋*：下个月若 CEO 又想“买个 iPad”，脑核会自动调取这条记录，使得 CFO 能够在会审中怼你：“上个月刚买完 Mac，你又要买 iPad？”
+```
+CEO: "我花了30块喝了杯星巴克咖啡"
+  │
+  ├─→ Strategy 拆解: 派给 CFO 记账
+  ├─→ Review 审核: 30元餐饮消费，金额合理 ✅ APPROVE
+  └─→ CFO 执行: record_transaction(amount=30, category="餐饮", type="expense")
+       └─→ PostgreSQL transactions 表新增一行 ✅
+```
+</details>
+
+<details>
+<summary><b>场景二：心愿目标 —— "我想买一台6800的电脑"</b></summary>
+
+```
+CEO: "我想买一台6800元的电脑"
+  │
+  ├─→ Strategy 拆解:
+  │     ├─ 派给 CFO: 创建心愿目标 (不是直接扣款！)
+  │     └─ 派给 COO: 制定每日积分任务计划
+  │
+  ├─→ Review 审核: 心愿目标机制，不涉及直接支出 ✅ APPROVE
+  │
+  ├─→ CFO 执行: create_wishlist_goal(name="电脑", target_points=6800)
+  │     └─→ wishlist_items 表新增目标 ✅
+  │
+  └─→ COO 执行: create_task(title="每日背50个单词", points_reward=100)
+        └─→ tasks 表新增带积分的任务 ✅
+
+... 每天完成任务 ...
+
+CEO: "我今天背完单词了"
+  └─→ COO: complete_task(task_id=X)
+       ├─→ tasks 状态 → done
+       ├─→ points_logs +100 积分
+       └─→ 心愿进度: 100/6800 (1.5%)
+
+... 积分达标后 ...
+
+CEO: "积分够了，兑换电脑"
+  └─→ CFO: redeem_wishlist_goal(wishlist_id=X)
+       ├─→ points_logs -6800 积分
+       └─→ wishlist_items 状态 → redeemed 🎉
+```
+</details>
 
 ---
 
@@ -162,8 +196,8 @@
 
 ### 🌅 2. 早会简报 (Morning Standup)
 每日初次打开，自动触发 Morning Briefing。各路高管以**社交气泡**的形式（Framer Motion 动画）给你汇报昨晚盘点的数据：
-> *“Boss，昨夜睡眠 5h 低于标准，建议今日推迟晨跑。” —— Dr.Chen (CWO)*<br>
-> *“附议。并且如果连续断签，你的自律积分将被清零。” —— Max (COO)*
+> *"Boss，昨夜睡眠 5h 低于标准，建议今日推迟晨跑。" —— Dr.Chen (CWO)*<br>
+> *"附议。并且如果连续断签，你的自律积分将被清零。" —— Max (COO)*
 
 ### 🧠 3. 思维链全景展示 (Agent Thinking Visualization)
 拒绝黑盒！你可以点开任何一个任务，展开查看每一个参与的 Agent：
@@ -171,19 +205,22 @@
 - 执行了什么 SQL/工具调用？
 - **最关键：它们内心是怎么想的 (Thinking Process)？** 为什么否决了你的请求？
 
-### 🎮 4. Persona Studio 与 游戏化成长
-一切皆可定制：
-- **定制高管**：给 CFO 改名叫“铁面老王”，或者调整它的系统 Prompt 设定为“毒舌管家模式”。每个 Agent 可独立配置 LLM 模型 (Claude / GPT / DeepSeek 热切换)。
-- **CEO 评级考绩**：执行力强、预算控制得当，你的系统职级讲从 `Intern (实习生)` 一路晋升至 `Legendary CEO`。
-- **独裁有局限**：你作为 CEO 始终有 `Override（强制通过）` 的特权，但过度使用会扣除你的期权积分并在执政记录上留下污点。
+### 🎮 4. 游戏化成长与积分体系
+- **心愿兑换**：想买贵重物品？先设定心愿目标，通过完成每日任务赚取积分，攒够了才能兑换。延迟满足，真正的自律。
+- **CEO 评级考绩**：执行力强、预算控制得当，你的系统职级将从 `Intern (实习生)` 一路晋升至 `Legendary CEO`。
+- **独裁有代价**：你作为 CEO 始终有 `Override（强制通过）` 的特权，但过度使用会扣除你的期权积分并在执政记录上留下污点。
 
 ---
 
-## 🚀 快速体验 (开发中)
+## 🚀 快速体验
 
-> 当前版本 (Phase 0) 已完成底层 PostgreSQL 九大表结构与 Node.js 基础 API。正在快速推进 Phase 1 的 UI 与动画集成。
+### 前置要求
+- **Node.js** ≥ 18
+- **PostgreSQL** ≥ 14（需启用 `pgvector` 扩展）
+- 一个 LLM API Key（推荐 [DeepSeek](https://platform.deepseek.com/)，也支持 OpenAI 兼容接口）
 
-### 本地开发运行：
+### 本地运行
+
 ```bash
 # 1. 克隆代码
 git clone https://github.com/Luchen-0420/Mycrop.git
@@ -192,43 +229,63 @@ cd Mycrop
 # 2. 安装依赖 (Monorepo)
 npm install
 
-# 3. 环境变量配置 (关键) 🔑
-# 复制 server 目录下的示例环境变量文件并填入你的 API Key
+# 3. 环境变量配置 🔑
 cp packages/server/.env.example packages/server/.env
-# 使用你喜欢的编辑器打开 packages/server/.env，填入你的大模型 (如 DeepSeek/OpenAI) 的 API 密钥
+# 编辑 .env，填入以下关键配置：
+#   LLM_API_KEY=你的API密钥
+#   LLM_BASE_URL=https://api.deepseek.com  (或其他 OpenAI 兼容地址)
+#   LLM_MODEL=deepseek-chat
+#   DATABASE_URL=postgresql://用户名:密码@localhost:5432/mecorp
 
-# 4. 启动本地 Postgres (推荐 Docker) 并执行初始化
-cd packages/server
-npx tsx src/db/init.ts # 🚨 重要：灌入基础 DB Schema 与 pgvector 扩展
+# 4. 前后端双开
+npm run dev
+# 自动并发启动：
+#   Frontend → http://localhost:5173
+#   Backend  → http://localhost:3002
+```
 
-# 5. 前后端双开
-npm run dev # 在应用根目录 (Mycrop) 下运行，自动并发拉起客户端 3000 与服务端 3001
+### 测试 Agent 执行
+
+```bash
+# 记一笔消费
+curl -X POST http://localhost:3002/api/missions/execute \
+  -H "Content-Type: application/json" \
+  -d '{"missionPrompt": "我刚花了30块喝了一杯星巴克"}'
+
+# 创建心愿目标
+curl -X POST http://localhost:3002/api/missions/execute \
+  -H "Content-Type: application/json" \
+  -d '{"missionPrompt": "我想买一台6800元的电脑，帮我制定积分计划"}'
 ```
 
 ---
 
-## 🗺️ Roadmap (进化路线)
+## 🗺️ Roadmap
 
 | 阶段 | 状态 | 目标 | 核心产出 |
-|---|---|---|---|
-| **Phase 0** | ✅ | **基石建设** | `users`, `finance`, `operations` 等九大表结构就绪；标准 CRUD 与 React UI 骨架贯通。 |
-| **Phase 1** | ✅ | **趣味翻新** | 引入 `Framer Motion`，重构转场；增加早会对话气泡模拟体验；构建 Persona Studio；构建 11 部门横轴沉浸式大厦视角。 |
-| **Phase 2** | ✅ | **AI 脑核装入** | 为 4 名核心首发角色注入 `System Prompt` 并接入 DeepSeek 云端 LLM API；跑通 Live 版 `Triage` 和 `Morning Brief` 气泡；支持楼层小人直接聊天指令交互。 |
-| **Phase 3** | ✅ | **多轮博弈流** | 实现重头戏：`Strategy -> Review -> Dispatch` 强约束流水线；配置 4 层容错处理器（防环死）。 |
-| **Phase 4** | ✅ | **沉浸与记忆** | 总裁主卧UI实装；运用 `@xenova/transformers` 构建纯本地 Local NLP 向量服务；引入 PostgreSQL `pgvector` 让高管们形成长效思维记忆。 |
+|:---:|:---:|:---|:---|
+| **Phase 0** | ✅ | **基石建设** | 九大表结构就绪；标准 CRUD 与 React UI 骨架贯通 |
+| **Phase 1** | ✅ | **趣味翻新** | Framer Motion 转场；早会对话气泡；Persona Studio；11 部门大厦视角 |
+| **Phase 2** | ✅ | **AI 脑核装入** | 4 名核心角色注入 System Prompt；接入 DeepSeek LLM API；Triage 与 Morning Brief |
+| **Phase 3** | ✅ | **多轮博弈流** | `Strategy → Review → Dispatch` 强约束流水线；4 层容错处理器 |
+| **Phase 4** | ✅ | **沉浸与记忆** | 本地 `@xenova/transformers` 向量服务；PostgreSQL `pgvector` 长效记忆 |
+| **Phase 5** | ✅ | **部门执行器** | Agent Executor 引擎；CFO/COO/CAO 真实 Tool Calling 操作数据库 |
+| **Phase 5.5** | ✅ | **积分兑换目标** | 心愿目标创建、积分追踪、任务奖励绑定、达标兑换全链路 |
+| **Phase 6** | 🔜 | **前端执行面板** | 可视化 Agent 思考过程、工具调用、积分进度仪表盘 |
 
-完整的业务/技术演进推演，详见内部知识库中的：[📚 ME_CORP_2.0_BLUEPRINT.md](docs/ME_CORP_2.0_BLUEPRINT.md)
+完整的业务/技术演进推演：[📚 ME_CORP_2.0_BLUEPRINT.md](docs/ME_CORP_2.0_BLUEPRINT.md)
 
 ---
 
 ## 🤝 参与项目
 
-如果你也受够了四分五裂的 To-Do、记账软件、习惯打卡 App，且认为 **“个人即企业”**，欢迎提交 PR 帮我一起完善这个属于自己的数字管理王国！
+如果你也受够了四分五裂的 To-Do、记账软件、习惯打卡 App，且认为 **"个人即企业"**，欢迎提交 PR 帮我一起完善这个属于自己的数字管理王国！
 
 ### 目前急需支援的方向：
 - 🎨 **PixiJS 场景大楼开发**（急缺 2.5D 精灵图和游戏开发经验的大佬）
 - 🤖 **Agent State Machine 编排引擎优化**（熟悉 LangGraph 在 TypeScript 生态替代方案的朋友）
 - 💬 更有趣、更毒舌的高管人格设定 Prompt 调优
+- 📊 前端积分进度与心愿追踪仪表盘
 
 ---
 
