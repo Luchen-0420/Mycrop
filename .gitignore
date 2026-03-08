@@ -30,8 +30,8 @@ dist-ssr
 .env.test.local
 .env.production.local
 
-# Docs (Removed from ignore to allow documentation sync)
-# docs/
+# Docs
+docs/
 
 # Caches
 .npm-cache
