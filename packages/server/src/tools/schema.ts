@@ -108,6 +108,17 @@ export function getDepartmentToolsSchema(role: string): any[] {
                     },
                     required: ['name', 'category', 'purchase_price']
                 }
+            },
+            {
+                name: 'check_inventory',
+                description: '查询公司目前的物资库存台账，看某个物品是否已经有了，或者余量是多少。在批复任何采购申请前，必须先查库存。',
+                parameters: {
+                    type: 'object',
+                    properties: {
+                        itemName: { type: 'string', description: '要查询的物品名称' }
+                    },
+                    required: ['itemName']
+                }
             }
         ]
     }

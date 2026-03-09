@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import AgentBubble from './AgentBubble'
-import { ChevronRight, Sparkles, Loader2 } from 'lucide-react'
+import { ChevronRight, ChevronUp, Sparkles, Loader2 } from 'lucide-react'
 
-export default function DailyBriefing() {
+export default function DailyBriefing({ onToggleFull, isExpanded, onArchive }) {
     const [briefingData, setBriefingData] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -63,7 +63,7 @@ export default function DailyBriefing() {
     }, [])
 
     return (
-        <div className="corp-card mb-8 relative overflow-hidden bg-white/[0.02] border-white/10 group hover:border-purple-500/30">
+        <div className="corp-card mb-4 relative overflow-hidden bg-white/[0.02] border-white/10 group hover:border-purple-500/30 transition-all">
             {/* Background decoration */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/20 via-blue-500/10 to-transparent rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none group-hover:from-purple-500/30 transition-colors duration-500"></div>
 
@@ -75,14 +75,29 @@ export default function DailyBriefing() {
                         </div>
                         <div>
                             <h2 className="text-xl font-bold text-white tracking-wide">
-                                晨间早会图文简报
+                                晨前简报
                             </h2>
-                            <p className="text-[11px] font-mono text-corp-muted uppercase tracking-widest mt-0.5">高层管理每日汇报 - LLM 实时介入中</p>
+                            <p className="text-[10px] font-mono text-corp-muted uppercase tracking-widest mt-0.5">M.E. CORP 每日内参 — LLM 实时介入</p>
                         </div>
                     </div>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded-full text-xs font-medium text-corp-text transition-all backdrop-blur-sm">
-                        查看完整报告 <ChevronRight size={14} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={onArchive}
+                            className="flex items-center gap-1.5 px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 rounded-full text-xs font-black transition-all shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+                        >
+                            阅毕并归档
+                        </button>
+                        <button
+                            onClick={onToggleFull}
+                            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all backdrop-blur-sm border ${isExpanded
+                                ? 'bg-corp-accent/20 border-corp-accent/40 text-corp-accent-light'
+                                : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
+                                }`}
+                        >
+                            {isExpanded ? '收起详情' : '查看完整报告'}
+                            {isExpanded ? <ChevronUp size={14} /> : <ChevronRight size={14} />}
+                        </button>
+                    </div>
                 </div>
 
                 <div className="h-[1px] w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent mb-6"></div>

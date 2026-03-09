@@ -1,6 +1,6 @@
 import { recordTransaction, checkBudget, createWishlistGoal, checkPointsBalance, redeemWishlistGoal } from './financeTools'
 import { createTask, completeTask } from './opsTools'
-import { addFixedAsset } from './adminTools'
+import { addFixedAsset, checkInventory } from './adminTools'
 
 /**
  * Main dispatcher to route tool executions triggered by the LLM
@@ -28,6 +28,8 @@ export async function executeTool(userId: number, toolName: string, parameters: 
         // --- CAO Tools ---
         case 'add_fixed_asset':
             return await addFixedAsset(userId, parameters.name, parameters.category, parameters.purchase_price)
+        case 'check_inventory':
+            return await checkInventory(userId, parameters.itemName)
 
         default:
             throw new Error(`Tool implementation for '${toolName}' not found or registered.`)

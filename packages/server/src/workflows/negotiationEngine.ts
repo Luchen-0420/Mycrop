@@ -9,6 +9,8 @@ import { AgentExecutor } from './agentExecutor'
 interface StrategyResponse {
     thinking_process: string
     validation_passed: boolean
+    status?: 'completed' | 'needs_ceo_input' | 'rejected'
+    points_gap?: number
     rejection_reason?: string
     subtasks?: Array<{
         role: string
@@ -88,7 +90,19 @@ export class NegotiationEngine {
                     console.log(`[Strategy] Mission rejected at planning phase: ${strategyPlan.rejection_reason}`)
                     await this.updateTaskStatus(taskId, 'rejected')
                     await saveMemory(`[Strategy Rejected] CEO requested: "${missionPrompt}". Reason: ${strategyPlan.rejection_reason}`, 'system')
-                    return { status: 'rejected', reason: strategyPlan.rejection_reason }
+                    return { status: 'rejected', reason: strategyPlan.rejection_reason, thinking: strategyPlan.thinking_process }
+                }
+
+                // New: Handle CEO Input Requirement (Stock/Budget/Points Check Failure)
+                if (strategyPlan.status === 'needs_ceo_input') {
+                    console.log(`[Strategy] 🚧 MISSION HALTED: Needs CEO Input (Points Gap: ${strategyPlan.points_gap})`)
+                    await this.updateTaskStatus(taskId, 'blocked')
+                    return {
+                        status: 'needs_ceo_input',
+                        pointsGap: strategyPlan.points_gap || 0,
+                        thinking: strategyPlan.thinking_process,
+                        taskId: taskId
+                    }
                 }
 
                 // --- STEP 2: REVIEW BOARD (Risk Control) ---
@@ -230,5 +244,63 @@ export class NegotiationEngine {
 
     private async updateTaskStatus(taskId: number, status: string) {
         await query(`UPDATE agent_tasks SET status = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2`, [status, taskId])
+    }
+
+    /**
+     * CEO defines custom rules to earn points for a specific gap.
+     */
+    async processRules(taskId: number, rulesText: string, gap: number) {
+        console.log(`\n📝 [Engine] CEO defining rules for Task ${taskId}. Gap: ${gap}`)
+
+        // 1. Get original mission info to link tasks to wishlist
+        const taskRes = await query(`SELECT original_prompt FROM agent_tasks WHERE id = $1`, [taskId])
+        const originalPrompt = taskRes.rows[0].original_prompt
+
+        // 2. Use LLM to parse rulesText into subtasks (Role: operations)
+        const parsePrompt = `
+你现在是 Me Corp 的「运营执行官 (COO)」。
+CEO 为了弥补积分为 ${gap} 的缺口，制定了以下规则：
+"${rulesText}"
+
+请将这些规则拆解为具体的、可勾选的任务列表。
+每个任务必须包含：
+- title: 简短的任务名
+- description: 详细描述
+- points_reward: 根据 CEO 的规则分配积分
+- priority: 根据规则的重要性设为 high/medium/low
+
+输出格式：
+{
+  "subtasks": [
+    { "title": "...", "description": "...", "points_reward": 20, "priority": "high" }
+  ]
+}
+`
+        const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+            { role: 'system', content: parsePrompt }
+        ]
+
+        const response = await generateJSONResponse<{ subtasks: any[] }>(messages)
+
+        // 3. Create the tasks in DB
+        const executor = new AgentExecutor(this.userId)
+        const results = []
+        for (const sub of response.subtasks) {
+            const execData = await executor.executeSubtask('operations', 'create_task', {
+                title: sub.title,
+                description: sub.description,
+                points_reward: sub.points_reward,
+                priority: sub.priority
+            })
+            results.push(sub)
+        }
+
+        await this.updateTaskStatus(taskId, 'completed')
+
+        return {
+            status: 'completed',
+            tasks: results,
+            report: `Boss，已根据您的指示拆解完成。共有 ${results.length} 项专项积分任务已同步至您的待办列表。`
+        }
     }
 }

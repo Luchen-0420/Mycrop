@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Building2, Plus, Zap, Activity, Loader2, FileText, ShieldAlert, CheckCircle2, Clock, XCircle, History, ChevronRight, MessageSquareQuote } from 'lucide-react'
 
 // Simulation Agents Data for 2D side-view (Full 11 Departments Hierarchy)
-const AGENTS = [
+// Simulation Agents Data for 2D side-view (Full 11 Departments Hierarchy)
+const INITIAL_AGENTS = [
     // Floor 5: Penthouse
     { id: 'ceo', name: 'Boss (总裁)', avatar: '👑', status: '全局统筹决策中...', action: 'walking', role: '总裁办', color: 'purple' },
 
@@ -25,6 +26,29 @@ const AGENTS = [
     { id: 'health', name: 'Dr.Chen (健康)', avatar: '👩‍⚕️', status: '全员血氧浓度监控...', action: 'idle', role: '健康中心', color: 'amber' },
     { id: 'travel', name: 'Sky (差旅)', avatar: '👩‍✈️', status: '预订下周私人专机...', action: 'typing', role: '差旅中心', color: 'indigo' }
 ]
+
+const getMergedAgents = (defaults) => {
+    try {
+        const stored = JSON.parse(localStorage.getItem('me-corp-agent-configs') || '[]');
+        const ceoName = localStorage.getItem('me-corp-ceo-name') || 'Boss';
+        return defaults.map(agent => {
+            if (agent.id === 'ceo') return { ...agent, name: `${ceoName} (总裁)` };
+            const config = stored.find(c => c.id === agent.id);
+            if (config) {
+                return {
+                    ...agent,
+                    name: `${config.name} (${agent.role.replace('部', '').replace('中心', '')})`,
+                    avatar: config.avatar || agent.avatar
+                };
+            }
+            return agent;
+        });
+    } catch (e) {
+        return defaults;
+    }
+};
+
+const AGENTS = getMergedAgents(INITIAL_AGENTS);
 
 // --- Helper Components for the Rooms ---
 
@@ -832,8 +856,8 @@ export default function VirtualFloor() {
                                             <button
                                                 onClick={() => setShowModalApproval(true)}
                                                 className={`w-full p-3 transition-all rounded-xl flex items-center justify-center gap-3 shadow-glow group border ${chainSteps.find(s => s.agentId === 'ceo')?.metadata?.decision === 'pending_tasks'
-                                                        ? 'bg-amber-500/20 border-amber-500/30 text-amber-200 hover:bg-amber-500/30'
-                                                        : 'bg-emerald-500/20 border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/30'
+                                                    ? 'bg-amber-500/20 border-amber-500/30 text-amber-200 hover:bg-amber-500/30'
+                                                    : 'bg-emerald-500/20 border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/30'
                                                     }`}
                                             >
                                                 <FileText size={16} className="group-hover:scale-110 transition-transform" />
