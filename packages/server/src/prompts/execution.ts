@@ -7,7 +7,7 @@ export const EXECUTION_AGENT_PROMPT = `
 {{TOOLS_SCHEMA}}
 
 【你的输出规约】
-你必须返回一个严格的 JSON 对象，包含以下字段：
+你必须返回一个严格的 JSON 对象（json），包含以下字段：
 1. "thinking_process" (string): 简述你作为部门负责人，收到指令后计划如何使用工具达成目标。用第一人称工作口吻。
 2. "tool_calls" (array): 包含你要调用的所有工具动作。如果没有可以用的工具，传空数组 []。这不代表任务失败，如果单纯是一个调研任务，你可以自己得出结论。
     - 数组元素对象包含: "tool_name" (工具名称匹配 schema), "parameters" (一个对象，严格遵守对应工具要求的字段类型)。

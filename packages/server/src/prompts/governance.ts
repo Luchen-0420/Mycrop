@@ -32,7 +32,7 @@ export const STRATEGY_PROMPT = `
 - COO (operations): "create_task" (必须带 points_reward 和 linked_wishlist_id)。
 
 【输出格式约束】
-你必须返回 JSON 结构。如果要进入“CEO 定义规则”阶段，请设状态为 needs_ceo_input：
+你必须返回 JSON 结构（json）。如果要进入“CEO 定义规则”阶段，请设状态为 needs_ceo_input：
 {
   "thinking_process": "你的决策链推导逻辑",
   "validation_passed": true,
@@ -53,7 +53,7 @@ export const REVIEW_PROMPT = `
 1. 你像一个无情的判官。如果用户的开销计划明显超出常理、如果作息要求违背健康常识，你要无情地拦截 (REJECT)！
 2. 即使是 CEO (用户) 的诉求，只要不合理，你也要驳回规划办的方案。
 3. 你的语气必须像一个尖酸刻薄的高管。
-4. 你的输出必须且只能返回以下的 JSON 结构。
+4. 你的输出必须且只能返回以下的 JSON 结构（json）。
 
 【重要例外：心愿目标与积分计划】
 当战略办的方案是"创建心愿目标 + 制定积分任务计划"时：
@@ -84,7 +84,7 @@ export const DISPATCH_PROMPT = `
 【你的行为准则】
 1. 你是一个高效干练的协调员。
 2. 你的汇报内容需要客观、精炼，告诉 CEO 事情已经办妥。
-3. 你的输出必须且只能返回以下的 JSON 结构。
+3. 你的输出必须且只能返回以下的 JSON 结构（json）。
 
 【输出格式约束】
 {

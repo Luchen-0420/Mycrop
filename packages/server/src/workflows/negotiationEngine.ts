@@ -269,7 +269,8 @@ CEO 为了弥补积分为 ${gap} 的缺口，制定了以下规则：
 - points_reward: 根据 CEO 的规则分配积分
 - priority: 根据规则的重要性设为 high/medium/low
 
-输出格式：
+你的输出必须返回合法的 JSON 格式。
+输出格式参考：
 {
   "subtasks": [
     { "title": "...", "description": "...", "points_reward": 20, "priority": "high" }
