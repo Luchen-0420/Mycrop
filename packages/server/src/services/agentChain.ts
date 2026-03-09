@@ -54,7 +54,7 @@ export async function executeAgentChain(userId: number, initialMessage: string):
             }
         }
 
-        // Logic for next steps (v2.1 Decision Chain)
+        // Logic for next steps (v2.3 Decision Chain)
         if (currentAgent === 'triage') {
             if (response.routeTo) {
                 currentAgent = response.routeTo;
@@ -62,24 +62,28 @@ export async function executeAgentChain(userId: number, initialMessage: string):
                 break; // Handled by Triage (chitchat)
             }
         } else if (currentAgent === 'finance') {
-            // After Finance, always go to CEO for approval with full financial context
+            // After Finance, always go to CEO for approval with full financial/policy context
             currentAgent = 'ceo';
             currentMessage = `财务部已完成审计。风险等级: ${response.riskLevel || '未知'}。评估认为: ${response.recommendation}。
 评估报告原文：${response.reply}
-请 CEO 最终批示。`;
+请 CEO 执行批示（资产购入或政策签署）。`;
         } else if (currentAgent === 'ceo') {
-            if (response.decision === 'pending_tasks') {
+            if (response.decision === 'pending_tasks' || response.recommendation === 'financing_recommended') {
                 currentAgent = 'operations';
-                currentMessage = `CEO 批示：资源不足，需通过赚积分达成。批示原文：${response.reply}。
-请 COO 立即生成专项融资项目任务。`;
+                currentMessage = `CEO 批示：列为专项融资。批示原文：${response.reply}。
+请 COO 立即生成专项任务并汇报。`;
+            } else if (response.decision === 'policy_update') {
+                currentAgent = 'operations';
+                currentMessage = `CEO 批示：正式签署法令。批示原文：${response.reply}。
+请 COO 立即备案合规检查项并汇报执行计划。`;
             } else if (response.decision === 'cooling_off') {
-                // In v2.1, cooling off ends the chain with a specific status
                 break;
             } else {
                 break; // Final decision (approve/reject) reached
             }
         } else if (currentAgent === 'operations') {
-            break; // Tasks created, flow ends
+            // Always end after Operations completes its task/policy setup
+            break;
         } else {
             break;
         }

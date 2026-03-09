@@ -34,6 +34,7 @@ function ApprovalSlip({ decision, report, thought, adaRisk, onClose }) {
     const isRejected = decision === 'reject';
     const isCooling = decision === 'cooling_off';
     const isPendingTasks = decision === 'pending_tasks';
+    const isPolicyUpdate = decision === 'policy_update';
 
     return (
         <motion.div
@@ -47,7 +48,7 @@ function ApprovalSlip({ decision, report, thought, adaRisk, onClose }) {
                 initial={{ scale: 0.9, y: 20, rotateX: 10 }}
                 animate={{ scale: 1, y: 0, rotateX: 0 }}
                 exit={{ scale: 0.9, y: 20, rotateX: -10 }}
-                className="w-full max-w-2xl bg-[#f8fafc] text-slate-900 shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-t-[16px] border-purple-600 relative overflow-hidden font-serif"
+                className={`w-full max-w-2xl bg-[#f8fafc] text-slate-900 shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-t-[16px] ${isPolicyUpdate ? 'border-red-700' : 'border-purple-600'} relative overflow-hidden font-serif`}
                 onClick={e => e.stopPropagation()}
             >
                 {/* Close Button */}
@@ -60,33 +61,42 @@ function ApprovalSlip({ decision, report, thought, adaRisk, onClose }) {
 
                 {/* Watermark */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[150px] font-black text-slate-200/40 -rotate-12 pointer-events-none select-none">
-                    M.E. CORP
+                    {isPolicyUpdate ? 'DECREE' : 'M.E. CORP'}
                 </div>
 
                 <div className="relative z-10 p-10">
                     <div className="flex justify-between items-start mb-8 border-b-2 border-slate-200 pb-6">
                         <div>
-                            <h2 className="text-3xl font-black tracking-tighter text-slate-800 uppercase">M.E. CORP 战略资产购置签批单</h2>
-                            <p className="text-xs font-mono font-bold text-slate-400 mt-2 tracking-widest">ORDER NO: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                            <h2 className="text-3xl font-black tracking-tighter text-slate-800 uppercase">
+                                {isPolicyUpdate ? 'M.E. CORP 系统政策签署法令' : 'M.E. CORP 战略资产购置签批单'}
+                            </h2>
+                            <p className="text-xs font-mono font-bold text-slate-400 mt-2 tracking-widest text-red-600">
+                                {isPolicyUpdate ? 'CONFIDENTIAL - EXECUTIVE ORDER' : 'ORDER NO: ' + Math.random().toString(36).substr(2, 9).toUpperCase()}
+                            </p>
                         </div>
-                        <div className={`px-6 py-3 border-4 font-black uppercase tracking-[0.2em] text-xl transform -rotate-2 ${isApproved ? 'border-emerald-500 text-emerald-600' : isRejected ? 'border-red-500 text-red-600' : 'border-amber-500 text-amber-600'}`}>
-                            {isApproved ? 'APPROVED' : isRejected ? 'REJECTED' : isCooling ? 'COOLING' : 'PENDING'}
+                        <div className={`px-6 py-3 border-4 font-black uppercase tracking-[0.2em] text-xl transform -rotate-2 ${isApproved ? 'border-emerald-500 text-emerald-600' : isRejected ? 'border-red-500 text-red-600' : isPolicyUpdate ? 'border-red-700 text-red-700' : 'border-amber-500 text-amber-600'}`}>
+                            {isApproved ? 'APPROVED' : isRejected ? 'REJECTED' : isPolicyUpdate ? 'DECREE' : isCooling ? 'COOLING' : 'PENDING'}
                         </div>
                     </div>
 
                     <div className="space-y-6 text-base leading-relaxed">
                         <div className="bg-slate-100 p-5 rounded-lg border-l-8 border-slate-300">
                             <span className="font-bold flex items-center gap-2 mb-2 text-slate-500 uppercase text-xs tracking-widest">
-                                <ShieldAlert size={14} className="text-emerald-500" /> 财务风控部审计结论 (ADA AUDIT)
+                                <ShieldAlert size={14} className={isPolicyUpdate ? "text-red-500" : "text-emerald-500"} />
+                                {isPolicyUpdate ? '系统平衡性策略审计 (ADA STRATEGY AUDIT)' : '财务风控部审计结论 (ADA AUDIT)'}
                             </span>
                             <p className="italic text-slate-700 font-medium">
-                                评估结果：该资产购置申请触发 {adaRisk ? adaRisk.toUpperCase() : 'MEDIUM'} 风险预警。
-                                当前存量流动性：NORMAL。ROI 预期收益率分析结论为：建议{isApproved ? '执行' : '克制'}。
+                                {isPolicyUpdate
+                                    ? '审计结论：该政策更新符合当前“融资周期”需求，奖惩比率设定均衡，准予备案并立即生效。'
+                                    : `评估结果：该资产购置申请触发 ${adaRisk ? adaRisk.toUpperCase() : 'MEDIUM'} 风险预警。当前存量流动性：NORMAL。ROI 预期收益率分析结论为：建议${isApproved ? '执行' : '克制'}。`
+                                }
                             </p>
                         </div>
 
                         <div className="py-2">
-                            <span className="font-bold block mb-3 underline decoration-purple-400 decoration-2 underline-offset-4 uppercase text-xs tracking-widest text-slate-400">CEO 最终签署意见 (FINAL DECREE)</span>
+                            <span className="font-bold block mb-3 underline decoration-purple-400 decoration-2 underline-offset-4 uppercase text-xs tracking-widest text-slate-400">
+                                {isPolicyUpdate ? '首席执行官 001 号法令 (EXECUTIVE ORDER)' : 'CEO 最终签署意见 (FINAL DECREE)'}
+                            </span>
                             <div className="pl-6 border-l-2 border-purple-100 whitespace-pre-wrap text-slate-800 font-medium text-lg leading-relaxed antialiased">
                                 {report}
                             </div>
@@ -96,7 +106,7 @@ function ApprovalSlip({ decision, report, thought, adaRisk, onClose }) {
                     <div className="mt-12 pt-8 border-t border-slate-200 flex justify-between items-end">
                         <div className="text-[11px] text-slate-400 font-mono leading-tight">
                             DIGITALLY SIGNED VIA LLM HIERARCHY ENGINE<br />
-                            STAMP ID: ME-H892-DECISION-V2.2<br />
+                            STAMP ID: ME-H892-DECISION-V2.3<br />
                             OFFICIAL DATE: {new Date().toLocaleDateString()}
                         </div>
                         <div className="flex flex-col items-center gap-2">
@@ -108,14 +118,11 @@ function ApprovalSlip({ decision, report, thought, adaRisk, onClose }) {
                 </div>
 
                 {/* Red Stamps Overlay */}
-                {isRejected && (
-                    <div className="absolute top-1/2 left-2/3 w-48 h-48 border-[8px] border-red-500/60 rounded-full flex items-center justify-center -rotate-[25deg] opacity-70 select-none pointer-events-none">
-                        <span className="text-red-600 font-black text-5xl uppercase tracking-tighter">驳回</span>
-                    </div>
-                )}
-                {isApproved && (
-                    <div className="absolute top-1/3 left-3/4 w-32 h-32 border-[6px] border-emerald-500/40 rounded flex items-center justify-center rotate-[15deg] opacity-40 select-none pointer-events-none">
-                        <span className="text-emerald-600 font-black text-2xl uppercase">PASSED</span>
+                {(isRejected || isPolicyUpdate) && (
+                    <div className={`absolute top-1/2 left-2/3 w-48 h-48 border-[8px] ${isPolicyUpdate ? 'border-red-700/60' : 'border-red-500/60'} rounded-full flex items-center justify-center -rotate-[25deg] opacity-70 select-none pointer-events-none`}>
+                        <span className={`font-black text-5xl uppercase tracking-tighter ${isPolicyUpdate ? 'text-red-800' : 'text-red-600'}`}>
+                            {isPolicyUpdate ? '已备案' : '驳回'}
+                        </span>
                     </div>
                 )}
             </motion.div>
@@ -324,6 +331,25 @@ export default function VirtualFloor() {
     })
     const [showHistory, setShowHistory] = useState(false)
 
+    // v2.3 Policy & Financing States
+    const [activePolicies, setActivePolicies] = useState(() => {
+        try {
+            const saved = localStorage.getItem('active_policies');
+            return saved ? JSON.parse(saved) : [
+                { id: 1, name: '睡眠合规 (10:00 PM)', reward: '+20 pts', penalty: '-20 pts' },
+                { id: 2, name: '知识经营 (>30min)', reward: '+20 pts', penalty: '-30 pts' },
+                { id: 3, name: '体能开发 (5h/周)', reward: '+30 pts', penalty: '-50 pts' }
+            ];
+        } catch (e) { return []; }
+    });
+
+    const [financingProjects, setFinancingProjects] = useState(() => {
+        try {
+            const saved = localStorage.getItem('financing_projects');
+            return saved ? JSON.parse(saved) : [{ id: 'mac', name: 'Strategic Asset: Mac', target: 6800, current: 1240 }];
+        } catch (e) { return []; }
+    });
+
     const commandInputRef = useRef(null)
 
     // Save to history helper
@@ -411,12 +437,51 @@ export default function VirtualFloor() {
             if (!res.ok) throw new Error('Network error');
             const data = await res.json();
 
+            console.log("[M.E. Corp Decode] Strategy Chain Received:", data);
+
             setChainSteps(data.steps || []);
             setChatReply(data.finalReply);
             setCommandInput('');
 
-            // If it's a CEO decision, show modal and save history
+            // Processing Metadata for v2.4 Dashboard Updates
             const ceoStep = data.steps?.find(s => s.agentId === 'ceo');
+
+            // 1. Handle Policy Update
+            if (ceoStep?.metadata?.policy) {
+                const newPolicy = {
+                    id: Date.now(),
+                    ...ceoStep.metadata.policy
+                };
+                setActivePolicies(prev => {
+                    const updated = [newPolicy, ...prev].slice(0, 5);
+                    localStorage.setItem('active_policies', JSON.stringify(updated));
+                    return updated;
+                });
+            }
+
+            // 2. Handle New Financing Project (Restored v2.4)
+            if ((ceoStep?.decision === 'pending_tasks' || ceoStep?.decision === 'policy_update' || ceoStep?.decision === 'approve') && ceoStep?.metadata?.project) {
+                const newProject = {
+                    id: Date.now(),
+                    ...ceoStep.metadata.project,
+                    current: ceoStep.metadata.project.current || 0
+                };
+                setFinancingProjects(prev => {
+                    if (!prev.some(p => p.name === newProject.name)) {
+                        const updated = [newProject, ...prev].slice(0, 3);
+                        localStorage.setItem('financing_projects', JSON.stringify(updated));
+                        return updated;
+                    }
+                    return prev;
+                });
+            }
+
+            // 3. Handle Health Veto (v2.4)
+            if (ceoStep?.decision === 'veto' || data.steps?.find(s => s.agentId === 'health')?.action === 'veto') {
+                console.warn("HEALTH VETO TRIGGERED: Strategic order suspended.");
+            }
+
+            // If it's a CEO decision, show modal and save history
             if (ceoStep) {
                 setShowModalApproval(true);
                 saveToHistory({
@@ -445,7 +510,7 @@ export default function VirtualFloor() {
     }
 
     return (
-        <div className="corp-card mb-8 relative overflow-hidden bg-[#0A0D14] min-h-[900px] flex flex-col border border-white/5 shadow-2xl">
+        <div className="corp-card mb-8 relative overflow-hidden bg-[#0A0D14] min-h-[950px] flex flex-col border border-white/5 shadow-2xl">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 z-0">
@@ -479,48 +544,59 @@ export default function VirtualFloor() {
                 </div>
 
                 {/* Global CEO Strategic Command Bar */}
-                <div className="w-full max-w-2xl mx-auto mt-2 pointer-events-auto">
-                    <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                        <div className="relative flex items-center bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl px-6 py-4 shadow-2xl">
-                            <div className="flex items-center gap-3 mr-4 border-r border-white/10 pr-4">
-                                <span className="text-xl">👑</span>
-                                <span className="text-[10px] font-bold text-purple-400 tracking-tighter uppercase whitespace-nowrap">CEO Strategic<br />Terminal</span>
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="mt-4 pointer-events-auto"
+                >
+                    <div className="relative group max-w-2xl mx-auto">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        <div className="relative flex items-center bg-[#0A0D14]/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-1 shadow-2xl overflow-hidden">
+                            <div className="pl-4 pr-2 text-purple-400">
+                                <ShieldAlert size={18} />
                             </div>
-                            <input
+                            <textarea
                                 ref={commandInputRef}
-                                type="text"
                                 value={commandInput}
                                 onChange={(e) => setCommandInput(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleCommandSubmit()}
-                                placeholder="输入战略指令（如：我想买一台 6800 的电脑）..."
-                                className="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-white/20 text-sm font-medium pr-4"
+                                placeholder="输入 CEO 全局战略指令 (e.g. #政策, #资产购置)..."
+                                className="flex-1 bg-transparent border-none text-white text-sm py-3 px-2 focus:ring-0 placeholder-white/20 font-mono tracking-tight resize-none h-12 no-scrollbar"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        e.preventDefault();
+                                        handleCommandSubmit();
+                                    }
+                                }}
                             />
-                            <div className="hidden md:flex items-center gap-2 mr-4 bg-white/5 px-2 py-1 rounded-md border border-white/5">
-                                <span className="text-[9px] text-white/40 font-mono">CTRL + K</span>
+                            <div className="flex gap-2 pr-2">
+                                <button
+                                    onClick={() => setShowHistory(true)}
+                                    className="p-2.5 text-white/40 hover:text-white transition-colors"
+                                >
+                                    <History size={18} />
+                                </button>
+                                <button
+                                    onClick={handleCommandSubmit}
+                                    disabled={isChatting || !commandInput.trim()}
+                                    className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${commandInput.trim() ? 'bg-purple-600 text-white shadow-glow animate-pulse' : 'bg-white/5 text-white/20 border border-white/5'
+                                        }`}
+                                >
+                                    {isChatting ? <Loader2 size={14} className="animate-spin" /> : 'EXECUTE'}
+                                </button>
                             </div>
-                            <button
-                                onClick={() => setShowHistory(true)}
-                                className="mr-2 p-2 text-white/40 hover:text-purple-400 transition-colors rounded-lg bg-white/5 border border-white/5"
-                                title="战略档案历史"
-                            >
-                                <History size={18} />
-                            </button>
-                            <button
-                                onClick={handleCommandSubmit}
-                                disabled={isChatting || !commandInput.trim()}
-                                className="bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-white font-bold text-[11px] px-5 py-2 rounded-lg transition-all shadow-glow flex items-center gap-2"
-                            >
-                                {isChatting ? <Loader2 size={14} className="animate-spin" /> : '战略分发'}
-                            </button>
+                        </div>
+                        <div className="absolute top-full left-4 mt-2 flex gap-4 text-[9px] font-mono text-white/30 tracking-widest uppercase">
+                            <span className="flex items-center gap-1"><kbd className="bg-white/5 px-1 rounded border border-white/10">CTRL+K</kbd> FOCUS</span>
+                            <span className="flex items-center gap-1 italic"><div className="w-1 h-1 rounded-full bg-red-500 animate-pulse"></div> CEO STRATEGIC TERMINAL v2.3</span>
                         </div>
                     </div>
-                </div>
+                </motion.div>
+
+                {/* v2.3 Financing Progress HUD - HIDDEN in v2.4 (Moved to Finance Room) */}
             </div>
 
-            {/* Side-View Tower (Restored Premium CSS Version) */}
+            {/* Tower Area */}
             <div className="relative z-10 flex-1 flex flex-col items-center justify-end pb-12 pt-8">
-
                 {/* Roof */}
                 <div className="w-[820px] h-8 bg-gradient-to-b from-white/10 to-transparent border-t border-x border-white/10 rounded-t-3xl mb-2 flex items-center justify-center relative">
                     <div className="w-20 h-1 bg-white/20 rounded-full"></div>
@@ -530,87 +606,124 @@ export default function VirtualFloor() {
                     <div className="absolute bottom-full right-[20%] w-0.5 h-8 bg-white/10"></div>
                 </div>
 
-                {/* The Building Layout */}
-                <div className="flex flex-col gap-2 w-[800px]">
-
-                    {/* Floor 5: Penthouse (CEO) */}
-                    <div className="w-full h-40 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-purple-500/50 transition-colors">
-                        <RoomBackground color="purple" label="总裁中枢 & 记忆核心 (CEO & RAG Memory)" />
-                        <RoomProps type="ceo" />
-                        <SimulatedSprite agent={AGENTS[0]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={700} startX={300} />
+                {/* Building Content */}
+                <div className="flex gap-12 items-end w-[1100px] justify-center px-4">
+                    {/* v2.3 Active Policy Tower (Left) - HIDDEN in v2.4 (Moved to Legal/Audit Room Sidebar) */}
+                    <div className="w-8 flex flex-col gap-3 mb-10 opacity-0 pointer-events-none">
                     </div>
 
-                    {/* Floor 4: Core Business (Finance, Legal, Commerce) */}
-                    <div className="w-full h-32 flex gap-2">
-                        <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-emerald-500/50 transition-colors">
-                            <RoomBackground color="emerald" label={AGENTS[1].role} />
-                            <RoomProps type="finance" />
-                            <SimulatedSprite agent={AGENTS[1]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={200} startX={100} />
+                    {/* Main Building Stack */}
+                    <div className="flex flex-col gap-2 w-[800px]">
+                        {/* Floor 5: Penthouse (CEO) */}
+                        <div className="w-full h-40 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-purple-500/50 transition-colors">
+                            <RoomBackground color="purple" label="总裁中枢 & 记忆核心 (CEO & RAG Memory)" />
+                            <RoomProps type="ceo" />
+                            <SimulatedSprite agent={AGENTS[0]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={700} startX={300} />
                         </div>
-                        <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-slate-500/50 transition-colors">
-                            <RoomBackground color="slate" label={AGENTS[2].role} />
-                            <RoomProps type="legal" />
-                            <SimulatedSprite agent={AGENTS[2]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={150} startX={50} />
+
+                        {/* Floor 4: Core Business (Finance, Legal, Commerce) */}
+                        <div className="w-full h-32 flex gap-2">
+                            <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-emerald-500/50 transition-colors p-4">
+                                <RoomBackground color="emerald" label={AGENTS[1].role} />
+                                <div className="relative z-10 flex flex-col gap-2 h-full justify-end max-w-[150px]">
+                                    {financingProjects.length > 0 ? (
+                                        <div className="bg-black/60 border border-emerald-500/20 p-2 rounded-lg backdrop-blur-sm">
+                                            <div className="text-[8px] font-bold text-emerald-400 uppercase tracking-tighter mb-1">CFO 专项融资监控</div>
+                                            {financingProjects.map(p => (
+                                                <div key={p.id} className="space-y-1 mt-1">
+                                                    <div className="flex justify-between items-end">
+                                                        <span className="text-[7px] text-white/50 truncate w-16">{p.name}</span>
+                                                        <span className="text-[7px] font-mono text-emerald-400">{(p.current / p.target * 100).toFixed(0)}%</span>
+                                                    </div>
+                                                    <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden">
+                                                        <div className="h-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]" style={{ width: `${(p.current / p.target * 100)}%` }}></div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : <RoomProps type="finance" />}
+                                </div>
+                                <SimulatedSprite agent={AGENTS[1]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={200} startX={100} />
+                            </div>
+                            <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-slate-500/50 transition-colors p-4">
+                                <RoomBackground color="slate" label={AGENTS[2].role} />
+                                <div className="relative z-10 flex flex-col gap-1 h-full overflow-y-auto no-scrollbar pt-8">
+                                    {activePolicies.map(policy => (
+                                        <div key={policy.id} className="text-[7px] bg-slate-500/10 border border-white/5 p-1 rounded font-mono text-slate-300 flex items-center justify-between">
+                                            <span># {policy.name}</span>
+                                            <div className="flex gap-1">
+                                                <span className="text-emerald-400 font-bold">{(policy.reward || "").toString().replace('pts', '')}</span>
+                                                <span className="text-red-400 font-bold">{(policy.penalty || "").toString().replace('pts', '')}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <SimulatedSprite agent={AGENTS[2]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={150} startX={50} />
+                            </div>
+                            <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-orange-500/50 transition-colors">
+                                <RoomBackground color="orange" label={AGENTS[3].role} />
+                                <RoomProps type="commerce" />
+                                <SimulatedSprite agent={AGENTS[3]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={200} startX={80} />
+                            </div>
                         </div>
-                        <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-orange-500/50 transition-colors">
-                            <RoomBackground color="orange" label={AGENTS[3].role} />
-                            <RoomProps type="commerce" />
-                            <SimulatedSprite agent={AGENTS[3]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={200} startX={80} />
+
+                        {/* Floor 3: Product & Market (R&D, PR) */}
+                        <div className="w-full h-32 flex gap-2">
+                            <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-cyan-500/50 transition-colors">
+                                <RoomBackground color="cyan" label={AGENTS[4].role} />
+                                <RoomProps type="rd" />
+                                <SimulatedSprite agent={AGENTS[4]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={400} startX={180} />
+                            </div>
+                            <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-pink-500/50 transition-colors">
+                                <RoomBackground color="pink" label={AGENTS[5].role} />
+                                <RoomProps type="pr" />
+                                <SimulatedSprite agent={AGENTS[5]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={200} startX={80} />
+                            </div>
+                        </div>
+
+                        {/* Floor 2: Internal Structure (HR, Operations, Admin) */}
+                        <div className="w-full h-32 flex gap-2">
+                            <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-rose-500/50 transition-colors">
+                                <RoomBackground color="rose" label={AGENTS[6].role} />
+                                <RoomProps type="hr" />
+                                <SimulatedSprite agent={AGENTS[6]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={150} startX={40} />
+                            </div>
+                            <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-blue-500/50 transition-colors">
+                                <RoomBackground color="blue" label={AGENTS[7].role} />
+                                <RoomProps type="ops" />
+                                <SimulatedSprite agent={AGENTS[7]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={250} startX={100} />
+                            </div>
+                            <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-yellow-500/50 transition-colors">
+                                <RoomBackground color="yellow" label={AGENTS[8].role} />
+                                <RoomProps type="admin" />
+                                <SimulatedSprite agent={AGENTS[8]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={150} startX={50} />
+                            </div>
+                        </div>
+
+                        {/* Floor 1: Facilities & Well-being (Health, Travel) */}
+                        <div className="w-full h-32 flex gap-2">
+                            <div className="flex-[1] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-amber-500/50 transition-colors">
+                                <RoomBackground color="amber" label={AGENTS[9].role} />
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div className="w-20 h-20 bg-amber-500/5 rounded-full blur-2xl animate-pulse"></div>
+                                    <div className="relative z-10 flex flex-col items-center">
+                                        <Activity className="text-amber-500/40 w-10 h-10" />
+                                        <div className="text-[8px] font-mono text-amber-500 mt-1 uppercase opacity-60">Fatigue Low</div>
+                                    </div>
+                                </div>
+                                <SimulatedSprite agent={AGENTS[9]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={350} startX={150} />
+                            </div>
+                            <div className="flex-[1] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-indigo-500/50 transition-colors">
+                                <RoomBackground color="indigo" label={AGENTS[10].role} />
+                                <RoomProps type="travel" />
+                                <SimulatedSprite agent={AGENTS[10]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={350} startX={150} />
+                            </div>
                         </div>
                     </div>
-
-                    {/* Floor 3: Product & Market (R&D, PR) */}
-                    <div className="w-full h-32 flex gap-2">
-                        <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-cyan-500/50 transition-colors">
-                            <RoomBackground color="cyan" label={AGENTS[4].role} />
-                            <RoomProps type="rd" />
-                            <SimulatedSprite agent={AGENTS[4]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={400} startX={180} />
-                        </div>
-                        <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-pink-500/50 transition-colors">
-                            <RoomBackground color="pink" label={AGENTS[5].role} />
-                            <RoomProps type="pr" />
-                            <SimulatedSprite agent={AGENTS[5]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={200} startX={80} />
-                        </div>
-                    </div>
-
-                    {/* Floor 2: Internal Structure (HR, Operations, Admin) */}
-                    <div className="w-full h-32 flex gap-2">
-                        <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-rose-500/50 transition-colors">
-                            <RoomBackground color="rose" label={AGENTS[6].role} />
-                            <RoomProps type="hr" />
-                            <SimulatedSprite agent={AGENTS[6]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={150} startX={40} />
-                        </div>
-                        <div className="flex-[3] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-blue-500/50 transition-colors">
-                            <RoomBackground color="blue" label={AGENTS[7].role} />
-                            <RoomProps type="ops" />
-                            <SimulatedSprite agent={AGENTS[7]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={250} startX={100} />
-                        </div>
-                        <div className="flex-[2] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-yellow-500/50 transition-colors">
-                            <RoomBackground color="yellow" label={AGENTS[8].role} />
-                            <RoomProps type="admin" />
-                            <SimulatedSprite agent={AGENTS[8]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={150} startX={50} />
-                        </div>
-                    </div>
-
-                    {/* Floor 1: Facilities & Well-being (Health, Travel) */}
-                    <div className="w-full h-32 flex gap-2">
-                        <div className="flex-[1] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-amber-500/50 transition-colors">
-                            <RoomBackground color="amber" label={AGENTS[9].role} />
-                            <RoomProps type="health" />
-                            <SimulatedSprite agent={AGENTS[9]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={350} startX={150} />
-                        </div>
-                        <div className="flex-[1] bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden group hover:border-indigo-500/50 transition-colors">
-                            <RoomBackground color="indigo" label={AGENTS[10].role} />
-                            <RoomProps type="travel" />
-                            <SimulatedSprite agent={AGENTS[10]} selectedAgent={selectedAgent} onSelect={setSelectedAgent} bounds={350} startX={150} />
-                        </div>
-                    </div>
-
                 </div>
 
                 {/* Ground */}
-                <div className="w-[110%] h-8 mt-4 border-t-2 border-white/20 bg-gradient-to-b from-white/5 to-transparent rounded-t-[50%] opacity-50 relative">
-                </div>
+                <div className="w-[110%] h-8 mt-6 border-t-2 border-white/20 bg-gradient-to-b from-white/5 to-transparent rounded-t-[50%] opacity-50 relative"></div>
             </div>
 
             {/* Bottom HUD Panel if Agent Selected */}
@@ -707,35 +820,45 @@ export default function VirtualFloor() {
 
                             {chatReply && (
                                 <AnimatePresence mode="wait">
-                                    {chainSteps.length > 0 && chainSteps.some(s => s.agentId === 'ceo') ? (
-                                        <button
-                                            onClick={() => setShowModalApproval(true)}
-                                            className="w-full p-4 bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all rounded-xl text-emerald-200 flex items-center justify-center gap-3 shadow-glow group"
-                                        >
-                                            <FileText size={18} className="group-hover:scale-110 transition-transform" />
-                                            <div className="text-left">
-                                                <div className="text-xs font-bold uppercase tracking-widest">战略决策已签署</div>
-                                                <div className="text-[10px] opacity-60">点击查看数字化签批公文</div>
-                                            </div>
-                                        </button>
-                                    ) : (
+                                    <div className="flex flex-col gap-3">
                                         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="p-4 bg-purple-500/10 border border-purple-500/20 shadow-glow rounded-xl text-sm text-purple-100">
                                             <p className="whitespace-pre-wrap leading-relaxed">
-                                                {chainSteps.length > 0 && <span className="block text-[10px] font-bold text-purple-400 mb-2 uppercase tracking-tighter border-b border-purple-500/20 pb-1">Final Strategic Order / 最终战略指令</span>}
+                                                {chainSteps.length > 0 && <span className="block text-[10px] font-bold text-purple-400 mb-2 uppercase tracking-tighter border-b border-purple-500/20 pb-1">Final Strategic Order / 决策汇报</span>}
                                                 {chatReply}
                                             </p>
                                         </motion.div>
-                                    )}
+
+                                        {chainSteps.length > 0 && chainSteps.some(s => s.agentId === 'ceo') && (
+                                            <button
+                                                onClick={() => setShowModalApproval(true)}
+                                                className={`w-full p-3 transition-all rounded-xl flex items-center justify-center gap-3 shadow-glow group border ${chainSteps.find(s => s.agentId === 'ceo')?.metadata?.decision === 'pending_tasks'
+                                                        ? 'bg-amber-500/20 border-amber-500/30 text-amber-200 hover:bg-amber-500/30'
+                                                        : 'bg-emerald-500/20 border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/30'
+                                                    }`}
+                                            >
+                                                <FileText size={16} className="group-hover:scale-110 transition-transform" />
+                                                <div className="text-left">
+                                                    <div className="text-[10px] font-bold uppercase tracking-widest">
+                                                        {chainSteps.find(s => s.agentId === 'ceo')?.metadata?.decision === 'pending_tasks' ? '查看待补充战略详情' : '点击查看 CEO 签批公文'}
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        )}
+                                    </div>
                                 </AnimatePresence>
                             )}
                             <div className="flex gap-2 w-full">
-                                <input
-                                    type="text"
+                                <textarea
                                     value={chatInput}
                                     onChange={(e) => setChatInput(e.target.value)}
                                     placeholder={`向 ${AGENTS.find(a => a.id === selectedAgent)?.role} 下达指令或交谈...`}
-                                    className="flex-1 bg-black/60 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-black/80 transition-all"
-                                    onKeyDown={(e) => e.key === 'Enter' && handleChatSubmit()}
+                                    className="flex-1 bg-black/60 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-black/80 transition-all resize-none h-10 no-scrollbar"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault();
+                                            handleChatSubmit();
+                                        }
+                                    }}
                                 />
                                 <button
                                     onClick={handleChatSubmit}
@@ -746,7 +869,6 @@ export default function VirtualFloor() {
                                 </button>
                             </div>
                         </div>
-
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -819,5 +941,5 @@ export default function VirtualFloor() {
                 )}
             </AnimatePresence>
         </div>
-    )
+    );
 }
