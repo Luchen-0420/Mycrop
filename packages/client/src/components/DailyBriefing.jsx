@@ -20,7 +20,7 @@ export default function DailyBriefing({ onToggleFull, isExpanded, onArchive }) {
                 const results = await Promise.all(
                     agentsToQuery.map(async (agent, index) => {
                         try {
-                            const res = await fetch('http://localhost:3002/api/agents/chat', {
+                            const res = await fetch('/api/agents/chat', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ agentId: agent.id, message: agent.prompt })

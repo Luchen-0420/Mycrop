@@ -420,7 +420,7 @@ export default function VirtualFloor() {
         setChatReply('') // hide old reply while generating
 
         try {
-            const res = await fetch('http://localhost:3002/api/agents/chat', {
+            const res = await fetch('/api/agents/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ agentId: selectedAgent, message: chatInput })
@@ -452,7 +452,7 @@ export default function VirtualFloor() {
         setShowModalApproval(false)
 
         try {
-            const res = await fetch('http://localhost:3002/api/agents/command', {
+            const res = await fetch('/api/agents/command', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: commandInput })

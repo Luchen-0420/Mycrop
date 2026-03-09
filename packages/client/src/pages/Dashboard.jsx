@@ -84,7 +84,7 @@ export default function Dashboard() {
         setRulesText('')
         setIsDefiningRules(false)
         try {
-            const res = await fetch('http://localhost:3002/api/missions/execute', {
+            const res = await fetch('/api/missions/execute', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ missionPrompt })
@@ -105,13 +105,13 @@ export default function Dashboard() {
         if (!rulesText.trim()) return
         setIsDefiningRules(true)
         try {
-            const res = await fetch('http://localhost:3002/api/missions/define-rules', {
+            const res = await fetch('/api/missions/define-rules', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    taskId: missionResult.taskId,
+                    taskId: missionResult?.taskId,
                     rulesText,
-                    gap: missionResult.pointsGap
+                    gap: missionResult?.pointsGap
                 })
             })
             const data = await res.json()
@@ -176,8 +176,9 @@ export default function Dashboard() {
 
                 {/* Inline Mission Result */}
                 <AnimatePresence>
-                    {missionResult && (
+                    {(missionResult || status === 'error') && (
                         <motion.div
+                            key={`mission-res-${status}-${missionResult?.taskId || 'err'}`}
                             initial={{ height: 0, opacity: 0, marginTop: 0 }}
                             animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
                             exit={{ height: 0, opacity: 0, marginTop: 0 }}
@@ -186,32 +187,41 @@ export default function Dashboard() {
                             <div className={`p-5 rounded-2xl border backdrop-blur-xl ${status === 'completed' ? 'bg-green-500/10 border-green-500/30' :
                                 status === 'rejected' ? 'bg-red-500/10 border-red-500/30' :
                                     status === 'needs_ceo_input' ? 'bg-purple-500/10 border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.1)]' :
-                                        'bg-yellow-500/10 border-yellow-500/30'
+                                        status === 'error' ? 'bg-rose-500/10 border-rose-500/30' :
+                                            'bg-yellow-500/10 border-yellow-500/30'
                                 }`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="flex items-center gap-2">
                                         {status === 'completed' ? <Check size={18} className="text-green-400" /> :
                                             status === 'rejected' ? <X size={18} className="text-red-400" /> :
                                                 status === 'needs_ceo_input' ? <Sparkles size={18} className="text-purple-400" /> :
-                                                    <AlertTriangle size={18} className="text-yellow-400" />}
+                                                    status === 'error' ? <X size={18} className="text-rose-400" /> :
+                                                        <AlertTriangle size={18} className="text-yellow-400" />}
+
                                         <span className={`text-sm font-black uppercase tracking-wider ${status === 'completed' ? 'text-green-400' :
                                             status === 'rejected' ? 'text-red-400' :
                                                 status === 'needs_ceo_input' ? 'text-purple-400' :
-                                                    'text-yellow-400'
+                                                    status === 'error' ? 'text-rose-400' :
+                                                        'text-yellow-400'
                                             }`}>
                                             {status === 'completed' ? '提案通过并同步执行' :
                                                 status === 'rejected' ? '风控委员会驳回' :
-                                                    status === 'needs_ceo_input' ? `积分缺口: ${missionResult.pointsGap} 分` :
-                                                        '由于博弈阻塞，提案挂起'}
+                                                    status === 'needs_ceo_input' ? `积分缺口: ${missionResult?.pointsGap || 0} 分` :
+                                                        status === 'error' ? '系统链路中断' :
+                                                            '由于博弈阻塞，提案挂起'}
                                         </span>
                                     </div>
-                                    <button onClick={() => setMissionResult(null)} className="text-white/20 hover:text-white transition-colors">
+                                    <button onClick={() => { setMissionResult(null); setStatus('idle'); }} className="text-white/20 hover:text-white transition-colors">
                                         <X size={16} />
                                     </button>
                                 </div>
 
-                                {/* Main content: report or rule definition */}
-                                {status === 'needs_ceo_input' ? (
+                                {/* Main content: report, error, or rule definition */}
+                                {status === 'error' ? (
+                                    <div className="text-sm text-rose-300 bg-black/40 p-4 rounded-xl border border-rose-500/20 font-mono">
+                                        远程决策服务器响应超时或端口连接失败。请检查后端服务 (Port: 3002) 是否已正常启动。
+                                    </div>
+                                ) : status === 'needs_ceo_input' ? (
                                     <div className="space-y-4">
                                         <p className="text-xs text-purple-200/70 border-l-2 border-purple-500/50 pl-3 italic">
                                             Boss，目前预算及积分不足以支持直接批复。请下达【专项积分获取指令】以弥补缺口。
@@ -232,13 +242,12 @@ export default function Dashboard() {
                                             </button>
                                         </div>
                                     </div>
-                                ) : (
+                                ) : missionResult && (
                                     <div className="space-y-4">
                                         <div className="text-sm text-slate-300 bg-black/40 p-4 rounded-xl border border-white/5 whitespace-pre-wrap leading-relaxed font-outfit shadow-inner">
                                             {missionResult.report || missionResult.reason || '指令已送达，正在下发至各执行部门。'}
                                         </div>
 
-                                        {/* Render TodoList if tasks are present (back from define-rules) */}
                                         {missionResult.tasks && (
                                             <div className="space-y-2 mt-4 animate-in fade-in slide-in-from-top-2">
                                                 <div className="text-[10px] font-mono text-corp-muted flex items-center gap-2">
@@ -247,8 +256,8 @@ export default function Dashboard() {
                                                     <div className="h-px flex-1 bg-white/5"></div>
                                                 </div>
                                                 {missionResult.tasks.map((task, idx) => (
-                                                    <div key={idx} className="flex items-center gap-3 bg-white/5 p-3 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
-                                                        <div className="w-5 h-5 rounded border border-corp-accent/40 flex items-center justify-center text-corp-accent group cursor-pointer hover:bg-corp-accent/20">
+                                                    <div key={idx} className="flex items-center gap-3 bg-white/5 p-3 rounded-lg border border-white/5 hover:border-white/10 transition-colors group">
+                                                        <div className="w-5 h-5 rounded border border-corp-accent/40 flex items-center justify-center text-corp-accent cursor-pointer hover:bg-corp-accent/20">
                                                             <Check size={12} className="opacity-0 group-hover:opacity-50" />
                                                         </div>
                                                         <div className="flex-1">
@@ -265,9 +274,9 @@ export default function Dashboard() {
                                     </div>
                                 )}
 
-                                {status !== 'completed' && status !== 'needs_ceo_input' && status !== 'idle' && (
+                                {status !== 'completed' && status !== 'needs_ceo_input' && status !== 'idle' && status !== 'error' && (
                                     <div className="mt-4 pt-4 border-t border-white/5 flex gap-3">
-                                        <button onClick={() => setMissionResult(null)} className="flex-1 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-xs font-bold rounded-lg border border-red-500/20 transition-all">
+                                        <button onClick={() => { setMissionResult(null); setStatus('idle'); }} className="flex-1 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-xs font-bold rounded-lg border border-red-500/20 transition-all">
                                             遵从建议 (Cancel)
                                         </button>
                                         <button className="flex-1 py-2.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded-lg border border-white/10 transition-all">
@@ -279,6 +288,7 @@ export default function Dashboard() {
                         </motion.div>
                     )}
                 </AnimatePresence>
+
             </div>
 
             {/* Daily Briefing Area */}
