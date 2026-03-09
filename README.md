@@ -19,10 +19,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Agent_Architecture-14_Agents-8B5CF6?style=flat-square" alt="Agents">
   <img src="https://img.shields.io/badge/Frontend-React_18_+_Vite-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React">
-  <img src="https://img.shields.io/badge/Visuals-PixiJS_+_Framer_Motion-FF0055?style=flat-square" alt="Animation">
+  <img src="https://img.shields.io/badge/Visuals-Framer_Motion_+_Glassmorphism-FF0055?style=flat-square" alt="Animation">
   <img src="https://img.shields.io/badge/Backend-Node.js_+_Express-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Backend">
   <img src="https://img.shields.io/badge/Database-PostgreSQL_+_pgvector-336791?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL">
-  <img src="https://img.shields.io/badge/LLM-DeepSeek_/_OpenAI-FF6600?style=flat-square" alt="LLM">
+  <img src="https://img.shields.io/badge/LLM-DeepSeek_/_OpenAI_/_Claude-FF6600?style=flat-square" alt="LLM">
   <img src="https://img.shields.io/badge/License-MIT-22C55E?style=flat-square" alt="License">
 </p>
 
@@ -214,7 +214,8 @@ graph TD
 - **CFO**：直接操作数据库记录账单、核算预算、管理积分类别墅。
 - **COO**：动态拆解任务并赋予积分奖励。
 - **CAO**：定时调取全局数据生成审计报告。
-- **技术全链路透明**：你可以实时查阅每一位 Agent 的 `Thought (内心 OS)` 和它们调用的具体的 `PostgreSQL` 命令。
+- **技术全链路透明 (Reasoning HUD)**：你可以实时查阅每一位 Agent 的 `Thought (内心 OS)`、推理逻辑以及它们调用的具体的 `PostgreSQL` 命令。
+- **战略档案 (Archive)**：所有签署的公文、政策与决策历史均已实现本地持久化，支持随时复盘追踪。
 
 ### 🎭 3. 用户自定义系统 (Persona Studio)
 一切都可以按你的口味来捏脸：
@@ -315,20 +316,17 @@ npm run dev
 | **Phase 5** | ✅ | **部门执行器落地** | 抛弃模拟日志，CFO/COO/CAO 接入真实 Tool Calling，直接操作数据库记录账单与任务。 |
 | **Phase 5.5** | ✅ | **积分别墅兑换** | 心愿目标池 (Wishlist) 建立；完成任务发放 Reward 积分，积分达标方可兑换贵重物品。 |
 | **Phase 6** | ✅ | **运营部全战力重构** | 将 ToDo 彻底重构为 **CEO 巡视指挥舱**：引入毛玻璃、霓虹发光进度条，强调大盘 KPI 与连击纪律。 |
-| **Phase 7** | ✅ | **审计与反思引擎** | 新设 **首席审计官 (CAO)**：每日 23:00 自动调取 LLM 盘点全公司意图达成率，产出带"拖延指数"的毒舌简报大屏。 |
-| **Phase 8** | ✅ | **2.5D 沉浸式办公大厅** | 引入 `PixiJS` 渲染引擎；实现带坐标投影的等距视角大楼；Agent 状态机动效与 WebGL 交互集成。 |
-| **Phase 11** | ✅ | **深度协同系统 (v2.4)** | 核心成就：实现 **跨部门协同链条**（资金锁定 + 语义任务转化 + 健康一票否决）；职能 UI 下沉集成，大厦全面“功能化”。 |
+| **Phase 7** | ✅ | **审计与反思引擎** | 新设 **首席审计官 (CAO)**：每日自动盘点执行意图达成率，产出带“拖延指数”的毒舌简报。 |
+| **Phase 9** | ✅ | **极度透明推理 HUD** | 实时显示 Agent `Thought` 字段；实现思维全链路可视化，消除多代理系统的“暗盒效应”。 |
+| **Phase 10** | ✅ | **指令中心 v2.3** | 实装**系统政策看板 (Compliance Tower)** 与 **融资项目 HUD**；支持政策签署逻辑。 |
+| **Phase 11** | ✅ | **深度协同系统 v2.4** | **核心成就**：实现跨部门协同链条（资金锁定 + 语义任务转化 + 健康一票否决）；职能 UI 下沉集成。 |
+| **Phase 12** | ✅ | **战略档案与追溯** | 实现 `localStorage` 决策持久化；推出 **Strategic History** 侧边栏，支持历史签批公文随时调取。 |
 
 ---
 
 ## 🤝 参与项目
 
 如果你也受够了四分五裂的 To-Do、记账软件、习惯打卡 App，且认为 **"个人即企业"**，欢迎提交 PR 帮我一起完善这个属于自己的数字管理王国！
-
-### 目前急需支援的方向：
-- 🤖 **Agent State Machine 编排引擎优化**（熟悉 LangGraph 在 TypeScript 生态替代方案的朋友）
-- 💬 更有趣、更毒舌的高管人格设定 Prompt 调优
-- 📊 前端积分进度与心愿追踪仪表盘
 
 ---
 
